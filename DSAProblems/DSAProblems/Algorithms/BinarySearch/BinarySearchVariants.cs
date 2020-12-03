@@ -6,10 +6,10 @@ namespace DSAProblems.Algorithms.BinarySearch
     {
         static void Main(string[] args)
         {
-            int[] arr = { 1, 2, 3, 4, 4, 5, 6, 7 }; 
+            int[] arr = { 1,   2,   3,   4,   7,   8,   10,  11,  13,  14,  15  }; 
             int x = 10;
 
-            Console.WriteLine(FirstOccurence(arr, 4));
+            Console.WriteLine(NearestNeighborBs(arr, 12));
 
             Console.ReadLine();
         }
@@ -84,7 +84,7 @@ namespace DSAProblems.Algorithms.BinarySearch
         //0      3       1         2
         //2      3       2         3
         //3      3       3         4
-        public static int FirstOccurence(int[] arr, int target)
+        public static int FirstOccurenceBs(int[] arr, int target)
         {
             int low = 0, high = arr.Length - 1;
             while (low <= high)
@@ -105,7 +105,7 @@ namespace DSAProblems.Algorithms.BinarySearch
             return -1;
         }
 
-        public static int LastOccurence(int[] arr, int target)
+        public static int LastOccurenceBs(int[] arr, int target)
         {
             int low = 0, high = arr.Length - 1;
             while (low <= high)
@@ -137,7 +137,50 @@ namespace DSAProblems.Algorithms.BinarySearch
         //      1   2   3   4   7   8   10  11  13  14  15        
         //      [  Rank = 4 ]   | (Successor)
 
+        public static int NearestNeighborBs(int[] arr, int target)
+        {
+            int low = 0, high = arr.Length - 1;
 
+            while (low <= high) {
+                int mid = low + (high - low) / 2;
+                if (arr[mid] > target) {
+                    high = mid - 1;
+                } else if (arr[mid] < target) {
+                    low = mid + 1;
+                } else if (arr[mid] == target) {
+                    return mid;
+                }
+            }
 
+            if (low >= arr.Length) { // low is out of bounds
+                return high;
+            }
+            if (high < 0) { // high is out of bounds
+                return low;
+            }
+            if (arr[low] - target < Math.Abs(arr[high] - target)) 
+            { 
+                return low;
+            }
+            return high;
+        }
+
+        public static int NextLargest(int[] arr, int target)
+        {
+            int low = 0, high = arr.Length - 1;
+
+            while (low <= high) {
+                int mid = low + (high - low) / 2;
+                if (arr[mid] > target) {
+                    high = mid - 1;
+                } else if (arr[mid] < target) {
+                    low = mid + 1;
+                } else if (arr[mid] == target) {
+                    return mid;
+                }
+            }
+
+            return (low >= arr.Length) ? -1 : low;
+        }
     }
 }
