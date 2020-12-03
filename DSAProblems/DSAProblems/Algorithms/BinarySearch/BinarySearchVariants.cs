@@ -9,7 +9,7 @@ namespace DSAProblems.Algorithms.BinarySearch
             int[] arr = { 1, 2, 3, 4, 4, 5, 6, 7 }; 
             int x = 10;
 
-            Console.WriteLine(LastOccurence(arr, 4));
+            Console.WriteLine(FirstOccurence(arr, 4));
 
             Console.ReadLine();
         }
@@ -57,28 +57,33 @@ namespace DSAProblems.Algorithms.BinarySearch
             return -1; 
         }
 
-        //Duplicate elements
-        //The return value of binary search is quite binary - either it gives index of the value searched for or -1
-        //It would be nice to handle duplicates in a way that is more useful. Perhaps getting information like the index of:
+        //How to handle duplicates
         //1.The first occurrence of a value
-        //2.The last occurrence of a value or in the case where the value we’re searching for doesn’t exist, the index of the:
-        //3.Closest value
-        //4.Next largest value
-        //5.Next smallest value
-
-        //Approximate Matches
-        //Binary search can be used to compute, for a given value
-        //1.Its rank (the number of smaller elements)
-        //2.Predecessor (next-smallest element),
-        //3.Successor (next-largest element)
-        //4.Nearest neighbor
-        //Example - Target = 5 (5 is not present in array)
-
-        //                  | (Predecessor or nearest neighbor)
-        //      1   2   3   4   7   8   10  11  13  14  15        
-        //      [  Rank = 4 ]   | (Successor)
+        //2.The last occurrence of a value 
 
 
+        //1.Binary search stops immediately when arr[mid] is the value we’re looking for 
+        //2.In FirstOccurence (or left most), we want to modify actual logic
+        //3.When we find an occurrence, do not immediately return the index of mid, 
+          //but instead begin searching for earlier occurrences that may appear in the range [low, mid] (inclusive)
+        //4.If we’re interested in the range [low, mid] (inclusive) after we find one occurrence, 
+          //we can just set right = mid to continue searching. Setting high = mid (instead of high = mid - 1) 
+          //includes the occurrence we just found when searching our “lower half”, so in the following possible cases:
+        // a. All values in the range [low, mid - 1] happen to be less than arr[mid], we don’t lose the occurrence we found
+        // b. There is an earlier occurrence in the range [left, mid - 1], we’ll find it with the rest of our logic
+        
+        //When to stop searching?
+        //when mid == low (after we’ve found an occurrence)
+        //there is no earlier range to search through because our “lower half” is gone. 
+        //So at this point, arr[mid] must be the earliest occurrence, and we’ll return it
+
+        //Example
+        //[1, 2, 3, 4, 4, 5, 6, 7] target = 4
+        //low   high    mid     arr[mid]
+        //0      7       3         4
+        //0      3       1         2
+        //2      3       2         3
+        //3      3       3         4
         public static int FirstOccurence(int[] arr, int target)
         {
             int low = 0, high = arr.Length - 1;
@@ -119,5 +124,20 @@ namespace DSAProblems.Algorithms.BinarySearch
             }
             return -1;
         }
+
+        //Approximate Matches
+        //The above procedure only performs exact matches, finding the position of a target value
+        //1.Its rank (the number of smaller elements)
+        //2.Predecessor (next-smallest element),
+        //3.Successor (next-largest element)
+        //4.Nearest neighbor
+        //Example - Target = 5 (5 is not present in array)
+
+        //                  | (Predecessor or nearest neighbor)
+        //      1   2   3   4   7   8   10  11  13  14  15        
+        //      [  Rank = 4 ]   | (Successor)
+
+
+
     }
 }
