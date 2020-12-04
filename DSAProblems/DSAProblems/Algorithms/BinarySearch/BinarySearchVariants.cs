@@ -2,6 +2,8 @@
 
 namespace DSAProblems.Algorithms.BinarySearch
 {
+    
+    //https://medium.com/better-programming/three-smart-ways-to-use-binary-search-in-coding-interviews-250ba296cb82
     class BinarySearchVariants
     {
         static void Main(string[] args)
@@ -9,7 +11,26 @@ namespace DSAProblems.Algorithms.BinarySearch
             int[] arr = { 1,   2,   3,   4,   7,   8,   10,  11,  13,  14,  15  }; 
             int x = 10;
 
-            Console.WriteLine(NearestNeighborBs(arr, 12));
+            int[,] twoDArr = new int[3,3] {
+                                            {1,3,12},
+                                            {2,4,20},
+                                            {5,10,20}
+                                            };
+            var mbs = new MatrixBinarySearch();
+
+
+            //Console.WriteLine(mbs.BinarySearch(twoDArr, 4));
+
+            int[,] twoDArrOne =
+            {
+                {10, 20, 30, 40},
+                {15, 25, 35, 45},
+                {27, 29, 37, 48},
+                {32, 33, 39, 50}
+            };
+
+            
+            Console.WriteLine(mbs.BinarySearch(twoDArrOne, 29));
 
             Console.ReadLine();
         }
