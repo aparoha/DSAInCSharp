@@ -45,7 +45,7 @@ namespace DSAProblems.Algorithms.BinarySearch
 //            };
 
             
-            Console.WriteLine(mbs.CountNegatives(jagged));
+            //Console.WriteLine(mbs.CountNegativesBs(jagged));
 
             Console.ReadLine();
         }

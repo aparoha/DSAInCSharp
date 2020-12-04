@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DSAProblems.LeetCode.BinarySearch
 {
@@ -50,6 +47,34 @@ namespace DSAProblems.LeetCode.BinarySearch
 
         //Binary search each row
         //TC - O(rows * log(columns))
+        //        var jagged = new[]
+        //        {
+        //            new[] {4, 3, 2, -1},
+        //            new[] {3, 2, 1, -1},
+        //            new[] {1, 1, -1, -2},
+        //            new[] {-1, -1, -2, -3}
+        //        };
+        //row [4,3,2,-1]
+        //left    right   mid   row[mid]
+        //0         4       2       2
+        //3         4       3       -1
+        //3         3       3       -1 (loop closed) sum = 4 - 3 = 1
+        //row [3,2,1,-1]
+        //left    right   mid   row[mid]
+        //0         4       2       1
+        //3         4       3       -1
+        //3         3       3       -1  (loop closed) sum = sum + (4 - 3) = 1 + 1 = 2
+        //row [1,1,-1,-2]
+        //left    right   mid   row[mid]
+        //0         4       2       -1
+        //0         2       1       1
+        //2         2       2       -1 (loop closed) sum = sum + (4 - 2) = 2 + 2 = 4
+        //row [-1,-1,-2,-3]
+        //left    right   mid   row[mid]
+        //0         4       2       -2
+        //0         2       1       -1
+        //0         1       0       -1
+        //0         0       0       -1 (loop closed) sum = sum + (4 - 0) = 4 + 4 = 8
         public int CountNegativesBs(int[][] grid) {
             if(grid == null){
                 return 0;
