@@ -24,13 +24,28 @@ namespace DSAProblems.Algorithms.BinarySearch
             //Stricly sorted array,  first element of a row is greater than the last element of the previous row
             int[,] twoDArrOne =
             {
-                {1, 5, 9, 11},
-                {14, 20, 21, 26},
-                {30, 34, 43, 50}
+                {4, 3, 2, -1},
+                {3, 2, 1, -1},
+                {1, 1, -1, -2},
+                {-1, -1, -2, -3}
             };
 
+            var jagged = new[]
+            {
+                new[] {4, 3, 2, -1},
+                new[] {3, 2, 1, -1},
+                new[] {1, 1, -1, -2},
+                new[] {-1, -1, -2, -3}
+            };
+
+//            jagged = new[]
+//            {
+//                new[] {3, 2},
+//                new[] {1, 0}
+//            };
+
             
-            Console.WriteLine(mbs.EfficientLinearTimeSearchOnGrid(twoDArrOne, 34));
+            Console.WriteLine(mbs.CountNegatives(jagged));
 
             Console.ReadLine();
         }
