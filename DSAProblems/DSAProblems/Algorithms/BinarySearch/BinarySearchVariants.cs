@@ -21,16 +21,16 @@ namespace DSAProblems.Algorithms.BinarySearch
 
             //Console.WriteLine(mbs.BinarySearch(twoDArr, 4));
 
+            //Stricly sorted array,  first element of a row is greater than the last element of the previous row
             int[,] twoDArrOne =
             {
-                {10, 20, 30, 40},
-                {15, 25, 35, 45},
-                {27, 29, 37, 48},
-                {32, 33, 39, 50}
+                {1, 5, 9, 11},
+                {14, 20, 21, 26},
+                {30, 34, 43, 50}
             };
 
             
-            Console.WriteLine(mbs.BinarySearch(twoDArrOne, 29));
+            Console.WriteLine(mbs.EfficientLinearTimeSearchOnGrid(twoDArrOne, 34));
 
             Console.ReadLine();
         }
