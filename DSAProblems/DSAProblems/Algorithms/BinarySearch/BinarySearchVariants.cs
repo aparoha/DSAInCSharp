@@ -6,6 +6,13 @@ namespace DSAProblems.Algorithms.BinarySearch
     //https://medium.com/better-programming/three-smart-ways-to-use-binary-search-in-coding-interviews-250ba296cb82
     class BinarySearchVariants
     {
+        //https://rosettacode.org/wiki/Binary_search
+        //inclusive (high = N -1) vs exclusive upper bound (high = N)
+        //How to convert inclusive upper bound to exclusive upper bound?
+        //1.change high = N-1 to high = N
+        //2.change high = mid-1 to high = mid
+        //3.(for recursive algorithm) change if (high < low) to if (high <= low)
+        //4.(for iterative algorithm) change while (low <= high) to while (low < high)
         static void Main(string[] args)
         {
             int[] arr = { 1,   2,   3,   4,   7,   8,   10,  11,  13,  14,  15  }; 

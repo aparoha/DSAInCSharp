@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 namespace DSAProblems.LeetCode.BinarySearch
 {
@@ -83,12 +82,12 @@ namespace DSAProblems.LeetCode.BinarySearch
             int sum = 0;
             foreach(int[] row in grid){
                 int left = 0;
-                int right = row.Length;
-                while(left < right){
+                int right = row.Length - 1;
+                while(left <= right){
                     int mid = left + (right - left) / 2;
                 
                     if(row[mid] < 0)
-                        right = mid;
+                        right = mid - 1;
                     else
                         left = mid + 1;
                 }
