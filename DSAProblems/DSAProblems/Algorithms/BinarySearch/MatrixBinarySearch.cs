@@ -90,6 +90,36 @@ namespace DSAProblems.Algorithms.BinarySearch
             return Tuple.Create(-1, -1);
         }
 
+        //Jagged Array Version
+        public Tuple<int, int> EfficientLinearTimeSearchOnGrid(int[][] grid, int target)
+        {
+            int rows = grid.Length;
+            int columns = grid[0].Length;
+
+            if (target < grid[0][0] || target > grid[rows - 1][columns - 1])
+            {
+                return Tuple.Create(-1, -1);
+            }
+
+            int row = 0, column = columns - 1;
+            while (row < rows && column >= 0)
+            {
+                if (grid[row][column] == target)
+                {
+                    return Tuple.Create(row, column);
+                }
+                if (grid[row][column] > target)
+                {
+                    column--;
+                }
+                else
+                {
+                    row++;
+                }
+            }
+            return Tuple.Create(-1, -1);
+        }
+
         //Binary Search
         //  {
         //      {15, 20, 70, 85},
