@@ -50,18 +50,38 @@ namespace DSAProblems.LeetCode.BinarySearch
         //or more boolean Trues, followed by 1 or more boolean False. 
         //For example, in the mountain array [1, 2, 3, 4, 1], the comparisons A[i] < A[i+1] would be True, True, True, False.
         //We can binary search over this array of comparisons, to find the largest index i such that A[i] < A[i+1]. 
-        public int PeakIndexInMountainArrayBs(int[] arr) {
+
+        //Discrete Binary Search
+        //Our monotonic function - comparison function f(x,y) = x < y => true or false
+        //[24,69,100,99,79,78,67,36,26,19] => [T,T,F,F,F,F,F,F,F]
+        public int PeakIndexInMountainArrayInclusive(int[] arr) {
             if(arr == null || arr.Length == 0 || arr.Length < 3) {
                 return -1;
             }
         
-            int low = 0, high = arr.Length - 1;
+            int low = 0, high = arr.Length - 2;
             while (low <= high) {
                 int mid = low + (high - low) / 2;
                 if (arr[mid] < arr[mid + 1])
                     low = mid + 1;
                 else
                     high = mid - 1;
+            }
+            return low;
+        }
+
+        public int PeakIndexInMountainArrayExclusive(int[] arr) {
+            if(arr == null || arr.Length == 0 || arr.Length < 3) {
+                return -1;
+            }
+        
+            int low = 0, high = arr.Length - 1;
+            while (low < high) {
+                int mid = low + (high - low) / 2;
+                if (arr[mid] < arr[mid + 1])
+                    low = mid + 1;
+                else
+                    high = mid;
             }
             return low;
         }

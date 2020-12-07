@@ -4,6 +4,7 @@ namespace DSAProblems.Algorithms.BinarySearch
 {
     
     //https://medium.com/better-programming/three-smart-ways-to-use-binary-search-in-coding-interviews-250ba296cb82
+    //https://www.junhaow.com/lc/notes/binary-search-template-notes.html
     class BinarySearchVariants
     {
         //https://rosettacode.org/wiki/Binary_search
@@ -13,69 +14,118 @@ namespace DSAProblems.Algorithms.BinarySearch
         //2.change high = mid-1 to high = mid
         //3.(for recursive algorithm) change if (high < low) to if (high <= low)
         //4.(for iterative algorithm) change while (low <= high) to while (low < high)
-        static void Main(string[] args)
-        {
-            int[] arr = { 1,   2,   3,   4,   7,   8,   10,  11,  13,  14,  15  }; 
-            int x = 10;
-
-            int[,] twoDArr = new int[3,3] {
-                                            {1,3,12},
-                                            {2,4,20},
-                                            {5,10,20}
-                                            };
-            var mbs = new MatrixBinarySearch();
-
-
-            //Console.WriteLine(mbs.BinarySearch(twoDArr, 4));
-
-            //Stricly sorted array,  first element of a row is greater than the last element of the previous row
-            int[,] twoDArrOne =
-            {
-                {4, 3, 2, -1},
-                {3, 2, 1, -1},
-                {1, 1, -1, -2},
-                {-1, -1, -2, -3}
-            };
-
-            var jagged = new[]
-            {
-                new[] {4, 3, 2, -1},
-                new[] {3, 2, 1, -1},
-                new[] {1, 1, -1, -2},
-                new[] {-1, -1, -2, -3}
-            };
-
-//            jagged = new[]
+//        static void Main(string[] args)
+//        {
+//            int[] arr = { 1,   2,   3,   4,   7,   8,   10,  11,  13,  14,  15  }; 
+//            int x = 10;
+//
+//            int[,] twoDArr = new int[3,3] {
+//                                            {1,3,12},
+//                                            {2,4,20},
+//                                            {5,10,20}
+//                                            };
+//            var mbs = new MatrixBinarySearch();
+//
+//
+//            //Console.WriteLine(mbs.BinarySearch(twoDArr, 4));
+//
+//            //Stricly sorted array,  first element of a row is greater than the last element of the previous row
+//            int[,] twoDArrOne =
 //            {
-//                new[] {3, 2},
-//                new[] {1, 0}
+//                {4, 3, 2, -1},
+//                {3, 2, 1, -1},
+//                {1, 1, -1, -2},
+//                {-1, -1, -2, -3}
 //            };
+//
+//            var jagged = new[]
+//            {
+//                new[] {4, 3, 2, -1},
+//                new[] {3, 2, 1, -1},
+//                new[] {1, 1, -1, -2},
+//                new[] {-1, -1, -2, -3}
+//            };
+//
+////            jagged = new[]
+////            {
+////                new[] {3, 2},
+////                new[] {1, 0}
+////            };
+//
+//            
+//            //Console.WriteLine(mbs.floorSqrt(2147395599));
+//
+//            Console.ReadLine();
+//        }
 
-            
-            //Console.WriteLine(mbs.CountNegativesBs(jagged));
-
-            Console.ReadLine();
-        }
+        //Template #1
+        //Used to search for an element or condition which can be determined by accessing a single index in the array
+        //Search Condition can be determined without comparing to the element's neighbors (or use specific elements around it)
+        //No post-processing required because at each step, you are checking to see if the element has been found. If you reach the end, then you know the element is not found
+        //Initial Condition: left = 0, right = length-1
+        //Termination: left > right
+        //Searching Left: right = mid-1
+        //Searching Right: left = mid+1
         public static int StandardBsIterative(int[] arr, int target)
         {
-            int low = 0, high = arr.Length - 1;
-            while (low <= high)
+            if(arr == null || arr.Length == 0)
+                return -1;
+            
+            int left = 0, right = arr.Length - 1;
+            while (left <= right)
             {
                 // same as (low + high) / 2, but prevents int overflows
-                int mid = low + (high - low) / 2; 
+                int mid = left + (right - left) / 2; 
   
                 // Check if target is present at mid 
-                if (target == arr[mid])
+                if (arr[mid] == target)
                     return mid;
   
                 // If target greater, ignore left half 
-                if (target > arr[mid]) 
-                    low = mid + 1; 
+                if (arr[mid] < target) 
+                    left = mid + 1; 
   
                 // If target is smaller, ignore right half 
                 else
-                    high = mid - 1; 
+                    right = mid - 1; 
             }
+            // End Condition: left > right
+            return -1;
+        }
+
+        //Template 2
+        //It is used to search for an element or condition which requires accessing the current index and its immediate right neighbor's index in the array
+        //Search Condition needs to access element's immediate right neighbor
+        //Use element's right neighbor to determine if condition is met and decide whether to go left or right
+        //Gurantees Search Space is at least 2 in size at each step
+        //Post-processing required. Loop/Recursion ends when you have 1 element left. Need to assess if the remaining element meets the condition.
+        //Initial Condition: left = 0, right = length
+        //Termination: left == right
+        //Searching Left: right = mid
+        //Searching Right: left = mid+1    
+        public static int StandardBsIterativeTemplate2(int[] arr, int target)
+        {
+            if(arr == null || arr.Length == 0)
+                return -1;
+
+            int left = 0, right = arr.Length;
+            while(left < right){
+
+                int mid = left + (right - left) / 2;
+
+                if(arr[mid] == target)
+                    return mid;
+                if (arr[mid] < target)
+                    left = mid + 1;
+                else
+                    right = mid;
+            }
+
+            // Post-processing:
+            // End Condition: left == right
+            if(left != arr.Length && arr[left] == target) 
+                return left;
+            
             return -1;
         }
 
