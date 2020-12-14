@@ -56,7 +56,7 @@ namespace DSAProblems.Algorithms.DepthFirstSearch
             while (queue.Any())
             {
                 Node current = queue.Dequeue();
-                retVal.Add(current.data);
+                retVal.Add(current.data); //Visit Node, print or add in result
                 if(current.left != null) queue.Enqueue(current.left);
                 if(current.right != null) queue.Enqueue(current.right);
             }
