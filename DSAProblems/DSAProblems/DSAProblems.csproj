@@ -32,7 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>DSAProblems.Algorithms.BinarySearch.BinarySearchVariants</StartupObject>
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -46,6 +47,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Algorithms\BinarySearch\BinarySearchVariants.cs" />
+    <Compile Include="Algorithms\BinarySearch\MatrixBinarySearch.cs" />
+    <Compile Include="Algorithms\BinarySearch\Problems.cs" />
+    <Compile Include="Algorithms\DepthFirstSearch\TreeTraversals.cs" />
+    <Compile Include="Algorithms\DP\05BestSum.cs" />
+    <Compile Include="Algorithms\DP\03CanSum.cs" />
+    <Compile Include="Algorithms\DP\01Fibonacci.cs" />
+    <Compile Include="Algorithms\DP\02GridTraveler.cs" />
+    <Compile Include="Algorithms\DP\04HowSum.cs" />
+    <Compile Include="Algorithms\Recursions\RecursionProblems.cs" />
+    <Compile Include="LeetCode\BFS\LeetCode102.cs" />
+    <Compile Include="LeetCode\BinarySearch\LeetCode1351.cs" />
+    <Compile Include="LeetCode\BinarySearch\LeetCode162.cs" />
+    <Compile Include="LeetCode\BinarySearch\LeetCode209.cs" />
+    <Compile Include="LeetCode\BinarySearch\LeetCode852.cs" />
+    <Compile Include="LeetCode\DynamicProgramming\LeetCode1025.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
