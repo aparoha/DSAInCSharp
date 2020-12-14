@@ -49,7 +49,7 @@
     <Compile Include="Algorithms\BinarySearch\BinarySearchVariants.cs" />
     <Compile Include="Algorithms\BinarySearch\MatrixBinarySearch.cs" />
     <Compile Include="Algorithms\BinarySearch\Problems.cs" />
-    <Compile Include="Algorithms\DepthFirstSearch\TreeTraversals.cs" />
+    <Compile Include="Algorithms\BreadthFirstSearch\TreeTraversals.cs" />
     <Compile Include="Algorithms\DP\05BestSum.cs" />
     <Compile Include="Algorithms\DP\03CanSum.cs" />
     <Compile Include="Algorithms\DP\01Fibonacci.cs" />
@@ -57,6 +57,12 @@
     <Compile Include="Algorithms\DP\04HowSum.cs" />
     <Compile Include="Algorithms\Recursions\RecursionProblems.cs" />
     <Compile Include="LeetCode\BFS\LeetCode102.cs" />
+    <Compile Include="LeetCode\BFS\LeetCode107.cs" />
+    <Compile Include="LeetCode\BFS\LeetCode1161.cs" />
+    <Compile Include="LeetCode\BFS\LeetCode429.cs" />
+    <Compile Include="LeetCode\BFS\LeetCode559.cs" />
+    <Compile Include="LeetCode\BFS\Node.cs" />
+    <Compile Include="LeetCode\BFS\TreeNode.cs" />
     <Compile Include="LeetCode\BinarySearch\LeetCode1351.cs" />
     <Compile Include="LeetCode\BinarySearch\LeetCode162.cs" />
     <Compile Include="LeetCode\BinarySearch\LeetCode209.cs" />
@@ -69,6 +75,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Algorithms\Backtracking\" />
     <Folder Include="DataStructures\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

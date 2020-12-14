@@ -17,21 +17,6 @@ namespace DSAProblems.LeetCode.BFS
     // Output: [[1],[2,3,4,5],[6,7,8,9,10],[11,12,13],[14]]
     class LeetCode429
     {
-        public class Node
-        {
-            public int val;
-            public IList<Node> children;
-            public Node() {}
-
-            public Node(int _val) {
-                val = _val;
-            }
-
-            public Node(int _val, IList<Node> _children) {
-                val = _val;
-                children = _children;
-            }
-        }
         public IList<IList<int>> LevelOrder(Node root) {
         
             List<IList<int>> result = new List<IList<int>>();
