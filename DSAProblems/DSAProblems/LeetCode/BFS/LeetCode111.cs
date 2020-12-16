@@ -18,6 +18,10 @@ namespace DSAProblems.LeetCode.BFS
     //    Output: 5
     class LeetCode111
     {
+        //Depth of Tree : Depth of tree is same as Height of Tree however it is calculated from top to bottom)
+        //Depth of Node : Depth of a node is calculated from traversal from root to a given node. 
+        //Height of Tree : Height of  tree represents the height of its root node (calculated from bottom to top).
+        //Height of Node : It is the Height from given node to the last possible leaf node.
         //Below code is same as maxDepth except isLeaf condition
         public int MinDepthIterative(TreeNode root) {
         
