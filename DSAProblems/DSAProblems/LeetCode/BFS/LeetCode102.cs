@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DSAProblems.LeetCode.BFS
@@ -21,35 +22,45 @@ namespace DSAProblems.LeetCode.BFS
 
     class LeetCode102
     {
-        public IList<IList<int>> LevelOrder(TreeNode root) {
-        
-            if(root == null) 
-                return new List<IList<int>>();
-        
+        public IList<IList<int>> LevelOrderQueue(TreeNode root)
+        {
             var result = new List<IList<int>>();
+            if(root == null) 
+                return result;
+        
             var queue = new Queue<TreeNode>();
             queue.Enqueue(root);
 
             while (queue.Any()) 
             {
-                var size = queue.Count;
                 var currentLevel = new List<int>();
+                var size = queue.Count;
                 for (int i = 0; i < size; i++)
                 {
                     var frontNode = queue.Dequeue();
-                    if (frontNode != null)
-                    {
-                        currentLevel.Add(frontNode.val);
-                        queue.Enqueue(frontNode.left);
-                        queue.Enqueue(frontNode.right);
-                    }
+                    currentLevel.Add(frontNode.val);
+                    if (frontNode.left != null) queue.Enqueue(frontNode.left);
+                    if (frontNode.right != null) queue.Enqueue(frontNode.right);
                 }
-                if (currentLevel.Any())
-                {
-                    result.Add(currentLevel);
-                }
+                result.Add(currentLevel);
             }
             return result;    
+        }
+
+        public IList<IList<int>> LevelOrderDfs(TreeNode root)
+        {
+            var result = new List<IList<int>>();
+            Dfs(root, 0, result);
+            return result;
+        }
+
+        private void Dfs(TreeNode root, int level, List<IList<int>> result)
+        {
+            if (root == null) return;
+            if(level == result.Count) result.Add(new List<int>());
+            result[level].Add(root.val);
+            Dfs(root.left, level + 1, result);
+            Dfs(root.right, level + 1, result);
         }
     }
 }

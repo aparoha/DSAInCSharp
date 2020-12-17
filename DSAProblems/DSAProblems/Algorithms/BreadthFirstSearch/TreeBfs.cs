@@ -44,7 +44,7 @@ namespace DSAProblems.Algorithms.DepthFirstSearch
         }
     }
         
-    class TreeTraversals
+    class TreeBfs
     {
         //BFS
         public List<int> LevelOrder(Node root)
@@ -62,5 +62,70 @@ namespace DSAProblems.Algorithms.DepthFirstSearch
             }
             return retVal;
         }
+
+        public List<int> LevelOrderR(Node root)
+        {
+            int h = GetHeight(root);
+            List<int> result = new List<int>();
+            for (int i = 1; i <= h; i++)
+            {
+                LevelOrderRHelper(root, i, result);
+            }
+            return result;
+        }
+
+        private int GetHeight(Node root)
+        {
+            if (root == null)
+            {
+                return 0;
+            }
+            int lheight = GetHeight(root.left);
+            int rheight = GetHeight(root.right);
+            return lheight > rheight ? lheight + 1 : rheight + 1; //Use larger one
+        }
+
+        private void LevelOrderRHelper(Node root, int level, List<int> result)
+        {
+            if (root == null)
+            {
+                return;
+            }
+            if (level == 1)
+            {
+                result.Add(root.data);
+            }
+            else if (level > 1)
+            {
+                LevelOrderRHelper(root.left, level - 1, result);
+                LevelOrderRHelper(root.right, level - 1, result);
+            }
+        }
+
+        //The height of a node is the length of the longest downward path to a leaf from that node. The height of the root is the height of the tree.
+        //An empty tree has height -1
+        public int TreeHeight(Node root)
+        {
+            int height = -1;
+            if (root == null) return height;
+            Queue<Node> queue = new Queue<Node>();
+            queue.Enqueue(root);
+
+            while (queue.Any())
+            {
+                int nodesAtCurrentLevel = queue.Count;
+                height++;
+                //Dequeue all nodes of current level and Enqueue all nodes of next level 
+                for (int i = 0; i < nodesAtCurrentLevel; i++)
+                {
+                    Node currentLevelNode = queue.Dequeue();
+                    if(currentLevelNode.left != null) queue.Enqueue(currentLevelNode.left);
+                    if(currentLevelNode.right != null) queue.Enqueue(currentLevelNode.right);
+                }
+            }
+
+            return height;
+        }
+     
     }
 }
