@@ -40,7 +40,7 @@ namespace DSAProblems.LeetCode.BFS
                     if (current.left != null) queue.Enqueue(current.left);
                     if (current.right != null) queue.Enqueue(current.right);
                 }
-                maxDepth++;
+                maxDepth++; // This line is the only change, rest is BFS
             }
         
             return maxDepth;

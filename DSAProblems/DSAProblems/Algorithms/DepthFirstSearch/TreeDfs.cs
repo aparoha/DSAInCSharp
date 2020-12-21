@@ -15,6 +15,8 @@ namespace DSAProblems.Algorithms.DepthFirstSearch
     //[right][root][left]
     //[right][left][root]
 
+        //https://leetcode.com/problems/number-of-operations-to-make-network-connected/discuss/922870/genric-union-template-dsu-dfs-bfs
+        //https://leetcode.com/discuss/general-discussion/969327/graph-algorithms-one-place-dijkstra-bellman-ford-floyd-warshall-prims-kruskals-dsu
     //https://leetcode.com/discuss/general-discussion/937307/iterative-recursive-dfs-bfs-tree-traversal-in-pre-post-levelorder-views
     class TreeDfs
     {

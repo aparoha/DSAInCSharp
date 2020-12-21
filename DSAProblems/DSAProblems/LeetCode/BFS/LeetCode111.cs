@@ -36,11 +36,11 @@ namespace DSAProblems.LeetCode.BFS
                 int size = queue.Count;
                 for(int i = 0; i < size; i++){
                     TreeNode current = queue.Dequeue();
-                    if(current.left == null && current.right == null) return minDepth; //isLeaf
+                    if(current.left == null && current.right == null) return minDepth; //isLeaf, only difference here
                     if (current.left != null) queue.Enqueue(current.left);
                     if (current.right != null) queue.Enqueue(current.right);
                 }
-                minDepth++;
+                minDepth++;//Same as maxDepth
             }
         
             return minDepth;

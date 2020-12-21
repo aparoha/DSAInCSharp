@@ -38,7 +38,7 @@ namespace DSAProblems.LeetCode.BFS
         
             while(queue.Any()) {
                 int size = queue.Count;
-                Node previous = null;
+                Node previous = null; //We need to keep track of previous node in level to assign next to current node
                 for(int i = 0; i < size; i++){
                     Node current = queue.Dequeue();
                     if(current.left != null) queue.Enqueue(current.left);
