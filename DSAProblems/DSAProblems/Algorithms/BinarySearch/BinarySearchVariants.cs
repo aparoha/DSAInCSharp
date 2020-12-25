@@ -5,6 +5,10 @@ namespace DSAProblems.Algorithms.BinarySearch
     
     //https://medium.com/better-programming/three-smart-ways-to-use-binary-search-in-coding-interviews-250ba296cb82
     //https://www.junhaow.com/lc/notes/binary-search-template-notes.html
+    //https://www.programmersought.com/article/60462110795/
+    //https://www.junhaow.com/lc/notes/binary-search-template-notes.html
+    //https://labuladong.gitbook.io/algo-en/iii.-algorithmic-thinking/detailedbinarysearch#thirdly-we-implement-binary-search-to-find-right-border
+    //https://leetcode.com/discuss/general-discussion/786126/Python-Powerful-Ultimate-Binary-Search-Template.-Solved-many-problems
     class BinarySearchVariants
     {
         //https://rosettacode.org/wiki/Binary_search
