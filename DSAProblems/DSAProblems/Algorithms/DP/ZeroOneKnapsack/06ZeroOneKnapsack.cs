@@ -1,5 +1,4 @@
 ﻿using System;
-using DSAProblems.Tricks;
 
 namespace DSAProblems.Algorithms.DP.ZeroOneKnapsack
 {
@@ -98,11 +97,42 @@ namespace DSAProblems.Algorithms.DP.ZeroOneKnapsack
             //Maximum of include and not include
             if (weights[size - 1] <= capacity)
             {
-                dp[size, capacity] = Math.Max(profits[size - 1] + solveRMemoHelper(dp, profits, weights, capacity - weights[size - 1], size - 1),
-                    solveRMemoHelper(dp, profits, weights, capacity, size - 1));
+                dp[size, capacity] = Math.Max(
+                    profits[size - 1] + solveRMemoHelper(dp, profits, weights, capacity - weights[size - 1], size - 1),
+                    solveRMemoHelper(dp, profits, weights, capacity, size - 1)
+                    );
                 return dp[size, capacity];
             }            
             dp[size, capacity] = solveRMemoHelper(dp, profits, weights, capacity, size - 1);
+            return dp[size, capacity];
+        }
+
+        public int solveBottomup(int[] profits, int[] weights, int capacity, int size)
+        {
+            //Convert base condition to initialization
+            int[,] dp = new int[size + 1, capacity + 1];
+            for (int i = 0; i < size + 1; i++)
+            {
+                for (int j = 0; j < capacity + 1; j++)
+                {
+                    if (i == 0 || j == 0)
+                    {
+                        dp[i, j] = 0;
+                    }
+                }
+            }
+
+            for (int i = 1; i < size + 1; i++)
+            {
+                for (int j = 1; j < capacity + 1; j++)
+                {
+                    if (weights[i - 1] <= j)
+                        dp[i, j] = Math.Max(profits[i - 1] + dp[i - 1, j - weights[i - 1]], dp[i - 1, j]);
+                    else
+                        dp[i, j] = dp[i - 1, j];
+                }
+            }
+
             return dp[size, capacity];
         }
 
