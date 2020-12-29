@@ -136,44 +136,6 @@ namespace DSAProblems.Algorithms.DP.ZeroOneKnapsack
             return dp[size, capacity];
         }
 
-        //Bottom up
-        public int solve(int[] profits, int[] weights, int capacity)
-        {
-            if (capacity <= 0 || profits.Length == 0 || weights.Length != profits.Length)
-                return 0;
-            int n = profits.Length;
-            int[,] dp = new int[n, capacity + 1];
-
-            // populate the capacity=0 columns, with '0' capacity we have '0' profit
-            for(int i=0; i < n; i++)
-                dp[i, 0] = 0;
-
-            // if we have only one weight, we will take it if it is not more than the capacity
-            for(int c=0; c <= capacity; c++) {
-                if(weights[0] <= c)
-                    dp[0, c] = profits[0];
-            }
-
-            // process all sub-arrays for all the capacities
-            for(int i=1; i < n; i++) {
-                for(int c=1; c <= capacity; c++) {
-                    int profit1= 0, profit2;
-                    // include the item, if it is not more than the capacity
-                    if(weights[i] <= c)
-                        profit1 = profits[i] + dp[i-1, c-weights[i]];
-                    // exclude the item
-                    profit2 = dp[i-1, c];
-                    // take maximum
-                    dp[i, c] = Math.Max(profit1, profit2);
-                }
-            }
-
-            PrintSelectedElements(dp, weights, profits, capacity);
-
-            // maximum profit will be at the bottom-right corner.
-            return dp[n-1, capacity];
-        }
-
         //How to find the selected items?
         private void PrintSelectedElements(int[,] dp, int[] weights, int[] profits, int capacity){
             Console.WriteLine("Selected weights:");
