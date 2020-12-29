@@ -38,5 +38,19 @@ namespace DSAProblems.Algorithms.DP.ZeroOneKnapsack
             SubsetSum subsetSum = new SubsetSum();
             return subsetSum.solveR(arr, n, sum / 2);
         }
+
+        public bool solveBottomUp(int[] set, int n)
+        {
+            int sum = 0;
+            for (int i = 0; i < n; i++)
+                sum += set[i];
+
+            // If sum is odd, there cannot be two subsets with equal sum
+            if (sum % 2 != 0)
+                return false;
+
+            SubsetSum ss = new SubsetSum();
+            return ss.solveBottomUp(set, n, sum / 2);
+        }
     }
 }
