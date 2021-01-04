@@ -73,10 +73,8 @@ namespace DSAProblems.LeetCode.StringProblems
         public int MinSteps3(string s, string t) {
             Dictionary<Char, int> map = new Dictionary<Char, int>();
             for(int i = 0; i < s.Length; i++){
-                char c1 = s[i];
-                char c2 = t[i];
-                map[c1] = GetOrDefault(c1, map) + 1;
-                map[c2] = GetOrDefault(c2, map) - 1;
+                map[s[i]] = GetOrDefault(s[i], map) + 1;
+                map[t[i]] = GetOrDefault(t[i], map) - 1;
             }
             return map.Values.Where(val => val > 0).Sum();
         }
