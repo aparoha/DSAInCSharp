@@ -34,7 +34,7 @@ namespace DSAProblems.LeetCode.DynamicProgramming
     
         public int helper(int[] cost, int n) {
             if (n < 0) return 0;
-            if (n==0 || n==1) return cost[n];
+            if (n == 0 || n == 1) return cost[n];
             return cost[n] + Math.Min(helper(cost, n-1), helper(cost, n-2));
         }
 
