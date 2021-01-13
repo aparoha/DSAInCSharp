@@ -161,7 +161,7 @@ namespace DSAProblems.Algorithms.BinarySearch
             while (low <= high)
             {
                 int mid = low + (high - low) / 2;
-                if (target >= arr[mid]) //include mid
+                if (target >= arr[mid])
                     low = mid + 1;
                 else
                     high = mid - 1;

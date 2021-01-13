@@ -98,5 +98,22 @@ namespace DSAProblems.LeetCode.DynamicProgramming
     
             return start == list.Count ? -1 : list[start];
         }
+
+//        private static int binarySearch2(int index, List<int> list, int start, int end) {
+//            Console.WriteLine($"First greater than {index} in list {string.Join(",", list)}");
+//            while (start < end)
+//            {
+//                int mid = start + (end - start) / 2;
+//                if (list[mid] >= index)
+//                {
+//                    end = mid;
+//                }
+//                else
+//                {
+//                    start = mid + 1;
+//                }
+//            } 
+//            return start == list.Count ? -1 : list[start]; 
+//        }
     }
 }

@@ -58,9 +58,21 @@
     <Compile Include="Algorithms\DP\01Fibonacci.cs" />
     <Compile Include="Algorithms\DP\02GridTraveler.cs" />
     <Compile Include="Algorithms\DP\04HowSum.cs" />
-    <Compile Include="Algorithms\DP\ZeroOneKnapsack\06ZeroOneKnapsack.cs" />
+    <Compile Include="Algorithms\DP\LongestCommonSubsequence\01LCS.cs" />
+    <Compile Include="Algorithms\DP\ZeroOneKnapsack\03EqualSumPartition.cs" />
+    <Compile Include="Algorithms\DP\ZeroOneKnapsack\02SubsetSum.cs" />
+    <Compile Include="Algorithms\DP\ZeroOneKnapsack\01ZeroOneKnapsack.cs" />
+    <Compile Include="Algorithms\DP\ZeroOneKnapsack\04CountSubsetsWithGivenSum.cs" />
+    <Compile Include="Algorithms\DP\ZeroOneKnapsack\05MinimumSubsetSumDifference.cs" />
     <Compile Include="Algorithms\Recursions\RecursionProblems.cs" />
     <Compile Include="Algorithms\Sorting\DivideAndConquer\MergeSort.cs" />
+    <Compile Include="Algorithms\Sorting\InsertionSort.cs" />
+    <Compile Include="DataStructures\Graph\Comparers.cs" />
+    <Compile Include="DataStructures\Graph\IEdge.cs" />
+    <Compile Include="DataStructures\Graph\IGraph.cs" />
+    <Compile Include="DataStructures\Graph\Undirected\Unweighted\SparseGraph.cs" />
+    <Compile Include="DataStructures\Graph\UnweightedEdge.cs" />
+    <Compile Include="DataStructures\LinkedList\Single\SingleNodeClass.cs" />
     <Compile Include="DataStructures\Tree\BinaryTree\BinaryTreeProblems.cs" />
     <Compile Include="DataStructures\Tree\BinaryTree\Node.cs" />
     <Compile Include="LeetCode\BFS\LeetCode102.cs" />
@@ -88,15 +100,45 @@
     <Compile Include="LeetCode\BinarySearch\LeetCode540.cs" />
     <Compile Include="LeetCode\BinarySearch\LeetCode852.cs" />
     <Compile Include="LeetCode\DynamicProgramming\LeetCode1025.cs" />
+    <Compile Include="LeetCode\DynamicProgramming\LeetCode121.cs" />
+    <Compile Include="LeetCode\DynamicProgramming\LeetCode392.cs" />
+    <Compile Include="LeetCode\DynamicProgramming\LeetCode746.cs" />
+    <Compile Include="LeetCode\LinkedList\LeetCode1290.cs" />
+    <Compile Include="LeetCode\LinkedList\LeetCode160.cs" />
+    <Compile Include="LeetCode\LinkedList\LeetCode2.cs" />
+    <Compile Include="LeetCode\LinkedList\LeetCode206.cs" />
+    <Compile Include="LeetCode\LinkedList\LeetCode234.cs" />
+    <Compile Include="LeetCode\LinkedList\LeetCode61.cs" />
+    <Compile Include="LeetCode\LinkedList\LeetCode876.cs" />
+    <Compile Include="LeetCode\SlidingWindow\LeetCode293.cs" />
+    <Compile Include="LeetCode\SlidingWindow\LeetCode795.cs" />
+    <Compile Include="LeetCode\StringProblems\LeetCode125.cs" />
+    <Compile Include="LeetCode\StringProblems\LeetCode1347.cs" />
+    <Compile Include="LeetCode\StringProblems\LeetCode680.cs" />
+    <Compile Include="LeetCode\StringProblems\LeetCode859.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tricks\Extensions.cs" />
+    <Compile Include="Commons\Anagrams.cs" />
+    <Compile Include="Commons\Extensions.cs" />
+    <Compile Include="SystemDesign\ConsistentHashing\ConsistentHash.cs" />
+    <Compile Include="SystemDesign\ConsistentHashing\FNVHash.cs" />
+    <Compile Include="SystemDesign\ConsistentHashing\Server.cs" />
+    <Compile Include="Techniques\FastSlowPointer.cs" />
+    <Compile Include="Techniques\PrefixSum.cs" />
+    <Compile Include="Techniques\SlidingWindow.cs" />
+    <Compile Include="Techniques\SubArraySubStringSubSequences.cs" />
+    <Compile Include="Techniques\Subsets.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Algorithms\Backtracking\" />
+    <Folder Include="DataStructures\Hashing\" />
+    <Folder Include="DataStructures\Tree\Heaps\" />
+    <Folder Include="DataStructures\Tree\SegmentedTree\" />
+    <Folder Include="DataStructures\Tree\SuffixTree\" />
+    <Folder Include="DataStructures\Tree\Trie\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
