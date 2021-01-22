@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DSAProblems.Techniques
 {
@@ -89,6 +90,26 @@ namespace DSAProblems.Techniques
                 }
             }
             return result;
+        }
+
+        public List<List<int>> permuteQ(int[] nums) {
+            Queue<Tuple<List<int>, List<int>> > q = new Queue<Tuple<List<int>, List<int>>>();
+            List<List<int>> res = new List<List<int>>();
+            q.Enqueue(Tuple.Create(nums.ToList(), new List<int>()));
+            while (q.Any()) {
+                var current = q.Dequeue();
+                if (!current.Item1.Any()) {
+                    res.Add(new List<int>(current.Item2));
+                }
+                for (int i=0; i< current.Item1.Count; i++) {
+                    List<int> newPath = new List<int>(current.Item2);
+                    newPath.Add(current.Item1[i]);
+                    List<int> newNums = new List<int>(current.Item1);
+                    newNums.RemoveAt(i);
+                    q.Enqueue(Tuple.Create(newNums, newPath));
+                }
+            }
+            return res;
         }
 
         public static List<string> findPermutationsStr(string s)
