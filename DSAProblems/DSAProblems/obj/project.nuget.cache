@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "vzlRpMjB6v1G3zsnddjx9IVI/hsTUcauO33oazP3v/Aj5qOTc7Q5BPWa+kA4xa2O8ea1nIR/qgTVuJyha0+awQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\AParoha\\DSAInCSharp\\DSAProblems\\DSAProblems\\DSAProblems.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\AParoha\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\AParoha\\.nuget\\packages\\microsoft.dotnet.upgradeassistant.extensions.default.analyzers\\0.3.242703\\microsoft.dotnet.upgradeassistant.extensions.default.analyzers.0.3.242703.nupkg.sha512",
+    "C:\\Users\\AParoha\\.nuget\\packages\\system.data.datasetextensions\\4.5.0\\system.data.datasetextensions.4.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
