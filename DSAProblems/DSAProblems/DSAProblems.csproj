@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <OutputType>Exe</OutputType>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
@@ -9,8 +9,12 @@
     </StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="DataStructures\Hashing\**" />
+    <EmbeddedResource Remove="DataStructures\Hashing\**" />
+    <None Remove="DataStructures\Hashing\**" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="Algorithms\Backtracking\" />
-    <Folder Include="DataStructures\Hashing\" />
     <Folder Include="DataStructures\Tree\Heaps\" />
     <Folder Include="DataStructures\Tree\SegmentedTree\" />
     <Folder Include="DataStructures\Tree\SuffixTree\" />
