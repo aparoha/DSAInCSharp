@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using DSAProblems.Algorithms.Recursions;
+using DSAProblems.Algorithms.Sorting;
 using DSAProblems.DataStructures.Graph;
 using DSAProblems.LeetCode.BFS;
 
@@ -33,56 +35,169 @@ namespace DSAProblems
     {
         static void Main(string[] args)
         {
-            //var edges = new int[][]
-            //            {
-            //  new int[] { 1, 3},
-            //  new int[] { 1, 2},
-            //  new int[] { 3, 4},
-            //  new int[] { 5, 6},
-            //  new int[] { 6, 3},
-            //  new int[] { 3, 8},
-            //  new int[] { 8, 11},
-            //            };
-            //Dictionary<int, List<int>> graph = new Dictionary<int, List<int>>();
-            //for (int i = 0; i < edges.Length; i++)
+            //int[] nums = new int[]{ 1, 1, 1, 2, 2, 3 };
+            //Dictionary<int, int> map = new Dictionary<int, int>();
+            //for (int i = 0; i < nums.Length; i++)
             //{
-            //    if (!graph.ContainsKey(edges[i][0]))
-            //    {
-            //        graph[edges[i][0]] = new List<int>();
-            //    }
-            //    graph[edges[i][0]].Add(edges[i][1]);
-            //    if (!graph.ContainsKey(edges[i][1]))
-            //    {
-            //        graph[edges[i][1]] = new List<int>();
-            //    }
+            //    if (!map.ContainsKey(nums[i]))
+            //        map.Add(nums[i], 1);
+            //    else
+            //        map[nums[i]]++;
             //}
-            //var result = topologicalSort(graph);
 
-            //var graph = new Dictionary<char, List<char>>
+            //var pq = new PriorityQueue<int, int>(Comparer<int>.Create((x, y) => y.CompareTo(x)));
+            //foreach(var kv in map)
             //{
-            //    { '0', new List<char> { '1', '2'} },
-            //    { '1', new List<char> { '3' } },
-            //    { '2', new List<char> { '1', '6'} },
-            //    { '3', new List<char> { '2', '4'} },
-            //    { '4', new List<char> { '5'} },
-            //    { '5', new List<char> { '7' } },
-            //    { '6', new List<char> { '4' } },
-            //    { '7', new List<char> { '6' } }
-            //};
-            //allPathsBfs(graph, '0', '6');
+            //    pq.Enqueue(kv.Key, kv.Value);
+            //}
 
-            var hp = new HasPath();
-            hp.PrintPathTwoNodesBfs(new Dictionary<int, List<int>>
+            //int k = 2;
+            //int j = 1;
+            //while(j <= k)
+            //{
+            //    Console.WriteLine(pq.Dequeue());
+            //    j++;
+            //}
+            var ms = new _04_MergeSort();
+            Console.WriteLine(string.Join(",", ms.Sort(new int[] {2, 4, 1, 6, 8, 5, 3, 7})));
+
+            //Console.WriteLine(FindKthSmallestMinHeap(new int[] {7, 4, 6, 3, 9, 1}, 2));
+
+            //var RP = new _01_SelectionSort();
+            //Console.WriteLine(RP.sort(new int[] { 33, 2, 52, 106, 73, 300, 19, 12, 1, 60 }));
+            Console.ReadLine();
+        }
+
+        public static int FindKthSmallestMinHeap(int[] nums, int k)
         {
-            {0, new List<int> {3} },
-            {1, new List<int> {0, 2, 4} },
-            {2, new List<int> {7} },
-            {3, new List<int> {4, 5} },
-            {4, new List<int> {3, 6} },
-            {5, new List<int> {6} },
-            {6, new List<int> {7} },
-            {7, new List<int>() }
-        }, 0, 7);
+            var minHeap = new PriorityQueue<int, int>();
+            foreach (var num in nums)
+                minHeap.Enqueue(num, num);
+            while (--k > 0)
+                minHeap.Dequeue();
+            return minHeap.Peek();
+        }
+
+        public static int FindKthSmallestMaxHeap(int[] nums, int k)
+        {
+            var maxHeap = new PriorityQueue<int, int>(Comparer<int>.Create((x, y) => y.CompareTo(x)));
+            foreach (int val in nums)
+            {
+                maxHeap.Enqueue(val, val);
+                if (maxHeap.Count > k)
+                {
+                    maxHeap.Dequeue();
+                }
+            }
+            return maxHeap.Peek();
+        }
+
+        public static int FindKthLargestMaxHeap(int[] nums, int k)
+        {
+            var maxHeap = new PriorityQueue<int, int>(Comparer<int>.Create((x, y) => y.CompareTo(x)));
+            foreach(var num in nums)
+                maxHeap.Enqueue(num, num);
+            while(--k > 0)
+                maxHeap.Dequeue();
+            return maxHeap.Peek();
+        }
+
+        public static int FindKthLargestMinHeap(int[] nums, int k)
+        {
+            var minHeap = new PriorityQueue<int, int>();
+            foreach (int val in nums)
+            {
+                minHeap.Enqueue(val, val);
+                if (minHeap.Count > k)
+                {
+                    minHeap.Dequeue();
+                }
+            }
+            return minHeap.Peek();
+        }
+
+
+        public static string GetIntBinaryString(int n)
+        {
+            char[] b = new char[32];
+            int pos = 31;
+            int i = 0;
+
+            while (i < 32)
+            {
+                var leftShift = 1 << i;
+                //Console.WriteLine($"{Convert.ToString(i, 2)} {Convert.ToString(leftShift, 2)}");
+                if ((n & leftShift) != 0)
+                {
+                    b[pos] = '1';
+                }
+                else
+                {
+                    b[pos] = '0';
+                }
+                pos--;
+                i++;
+            }
+            return new string(b);
+        }
+
+        public static bool CanFinish(int numCourses, int[][] prerequisites)
+        {
+            if (prerequisites.Length == 0)
+                return true;
+            var graph = createGraph(prerequisites);
+            var inDegrees = getInDegrees(graph);
+            var queue = new Queue<int>();
+            foreach (var node in inDegrees.Keys)
+            {
+                if (inDegrees[node] == 0)
+                    queue.Enqueue(node);
+            }
+            if (queue.Count == 0)
+                return false;
+
+            int count = 0;
+            while (queue.Count > 0)
+            {
+                var current = queue.Dequeue();
+                foreach (var neighbor in graph[current])
+                {
+                    inDegrees[neighbor]--;
+                    count++;
+                    if (inDegrees[neighbor] == 0)
+                        queue.Enqueue(neighbor);
+                }
+            }
+            return count == numCourses;
+        }
+
+        private static Dictionary<int, List<int>> createGraph(int[][] prerequisites)
+        {
+            var graph = new Dictionary<int, List<int>>();
+            foreach (var row in prerequisites)
+            {
+                int u = row[0];
+                int v = row[1];
+                if (!graph.ContainsKey(u))
+                    graph.Add(u, new List<int>());
+                if (!graph.ContainsKey(v))
+                    graph.Add(v, new List<int>());
+                graph[u].Add(v); // [u, v] => v -> u
+            }
+            return graph;
+        }
+
+        private static Dictionary<int, int> getInDegrees(Dictionary<int, List<int>> graph)
+        {
+            var inDegrees = new Dictionary<int, int>();
+            foreach (var node in graph.Keys)
+                inDegrees.Add(node, 0);
+            foreach (var node in graph.Keys)
+            {
+                foreach (var neighbor in graph[node])
+                    inDegrees[neighbor]++;
+            }
+            return inDegrees;
         }
 
         private static bool isCycleDfsDG(Dictionary<int, List<int>> graph)

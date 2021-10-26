@@ -9,6 +9,18 @@ namespace DSAProblems.DataStructures.Graph
     //4. print path using BFS
     //5. All paths between source and destination using DFS
     //6. All paths between source and destination using BFS
+
+    //new Dictionary<int, List<int>>
+    //    {
+    //        {0, new List<int> {3} },
+    //        { 1, new List<int> { 0, 2, 4 } },
+    //        { 2, new List<int> { 7 } },
+    //        { 3, new List<int> { 4, 5 } },
+    //        { 4, new List<int> { 3, 6 } },
+    //        { 5, new List<int> { 6 } },
+    //        { 6, new List<int> { 7 } },
+    //        { 7, new List<int>() }
+    //    }
     public class HasPath
     {
         //Approach 1 - Use DFS with backtracking
