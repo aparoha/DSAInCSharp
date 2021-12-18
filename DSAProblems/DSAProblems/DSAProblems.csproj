@@ -10,15 +10,23 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="DataStructures\Hashing\**" />
+    <Compile Remove="DataStructures\Tree\Heaps\**" />
+    <Compile Remove="DataStructures\Tree\SegmentedTree\**" />
+    <Compile Remove="DataStructures\Tree\SuffixTree\**" />
+    <Compile Remove="DataStructures\Tree\Trie\**" />
     <EmbeddedResource Remove="DataStructures\Hashing\**" />
+    <EmbeddedResource Remove="DataStructures\Tree\Heaps\**" />
+    <EmbeddedResource Remove="DataStructures\Tree\SegmentedTree\**" />
+    <EmbeddedResource Remove="DataStructures\Tree\SuffixTree\**" />
+    <EmbeddedResource Remove="DataStructures\Tree\Trie\**" />
     <None Remove="DataStructures\Hashing\**" />
+    <None Remove="DataStructures\Tree\Heaps\**" />
+    <None Remove="DataStructures\Tree\SegmentedTree\**" />
+    <None Remove="DataStructures\Tree\SuffixTree\**" />
+    <None Remove="DataStructures\Tree\Trie\**" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Algorithms\Backtracking\" />
-    <Folder Include="DataStructures\Tree\Heaps\" />
-    <Folder Include="DataStructures\Tree\SegmentedTree\" />
-    <Folder Include="DataStructures\Tree\SuffixTree\" />
-    <Folder Include="DataStructures\Tree\Trie\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />

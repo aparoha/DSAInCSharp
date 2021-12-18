@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using DSAProblems.Algorithms.Recursions;
-using DSAProblems.Algorithms.Sorting;
-using DSAProblems.DataStructures.Graph;
+using DSAProblems.DataStructures.LinkedList;
 using DSAProblems.LeetCode.BFS;
 
 namespace DSAProblems
@@ -58,14 +56,55 @@ namespace DSAProblems
             //    Console.WriteLine(pq.Dequeue());
             //    j++;
             //}
-            var ms = new _04_MergeSort();
-            Console.WriteLine(string.Join(",", ms.Sort(new int[] {2, 4, 1, 6, 8, 5, 3, 7})));
+            //var ms = new _04_MergeSort();
+            //Console.WriteLine(string.Join(",", ms.Sort(new int[] {2, 4, 1, 6, 8, 5, 3, 7})));
 
             //Console.WriteLine(FindKthSmallestMinHeap(new int[] {7, 4, 6, 3, 9, 1}, 2));
 
             //var RP = new _01_SelectionSort();
             //Console.WriteLine(RP.sort(new int[] { 33, 2, 52, 106, 73, 300, 19, 12, 1, 60 }));
-            Console.ReadLine();
+
+            SinglyLinkedList<int> list = new SinglyLinkedList<int>();
+            list.AddFirst(4);
+            list.AddFirst(0);
+            list.AddFirst(7);
+            list.AddFirst(3);
+            list.AddFirst(8);
+            list.AddFirst(2);
+            list.AddFirst(1);
+            foreach (int i in list)
+                Console.WriteLine(i);
+
+            Console.WriteLine(list.KthElementFromLast(5));
+            //Console.WriteLine("List count = {0}", list.Count);
+            //Console.WriteLine("Head  = {0}", list.Head.Value);
+            //Console.WriteLine("Tail  = {0}", list.Tail.Value);
+            //Console.WriteLine("Head's Previous  = {0}", list.Head.Previous.Value);
+            //Console.WriteLine("Tail's Next  = {0}", list.Tail.Next.Value);
+            //Console.WriteLine("************List Items***********");
+            //foreach (int i in list)
+            //    Console.WriteLine(i);
+
+            //Console.WriteLine("************List Items in reverse***********");
+            //for (IEnumerator<int> r = list.GetReverseEnumerator(); r.MoveNext();)
+            //    Console.WriteLine(r.Current);
+
+            //Console.WriteLine("************Adding a new item at first***********");
+            //list.AddFirst(0);
+            //foreach (int i in list)
+            //    Console.WriteLine(i);
+
+            //Console.WriteLine("************Adding item before***********");
+            //list.AddBefore(2, 11);
+            //foreach (int i in list)
+            //    Console.WriteLine(i);
+
+            //Console.WriteLine("************Adding item after***********");
+            //list.AddAfter(3, 4);
+            //foreach (int i in list)
+            //    Console.WriteLine(i);
+
+            Console.ReadKey();
         }
 
         public static int FindKthSmallestMinHeap(int[] nums, int k)
