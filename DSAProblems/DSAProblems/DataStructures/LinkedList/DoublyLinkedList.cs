@@ -3,6 +3,37 @@ using System.Collections.Generic;
 
 namespace DSAProblems.DataStructures.LinkedList
 {
+    /*
+     *      DoublyLinkedList<int> ll = new DoublyLinkedList<int>();
+            ll.AddLast(1);
+            ll.AddLast(3);
+            ll.AddLast(4);
+            ll.AddLast(5);
+            ll.AddLast(7);
+            ll.AddLast(8);
+            foreach (int value in ll)
+                Console.WriteLine(value);
+            Console.WriteLine("********Adding item after*************");
+            ll.AddAfter(6, 5);
+            foreach (int value in ll)
+                Console.WriteLine(value);
+            Console.WriteLine("********Adding item before*************");
+            ll.AddBefore(2, 3);
+            foreach (int value in ll)
+                Console.WriteLine(value);
+            Console.WriteLine("********Remove First*************");
+            ll.RemoveFirst();
+            foreach (int value in ll)
+                Console.WriteLine(value);
+            Console.WriteLine("********Remove Last*************");
+            ll.RemoveLast();
+            foreach (int value in ll)
+                Console.WriteLine(value);
+            Console.WriteLine("********Find and Remove*************");
+            ll.Remove(5);
+            foreach (int value in ll)
+                Console.WriteLine(value);
+    */
     public sealed class DoublyLinkedList<T> : IEnumerable<T>
     {
         private DoublyLinkedListNode<T> _head;
@@ -174,7 +205,7 @@ namespace DSAProblems.DataStructures.LinkedList
                 {
                     yield return current.Value;
                     current = current.Next;
-                } while (current != _tail);
+                } while (current != null);
             }
         }
 
