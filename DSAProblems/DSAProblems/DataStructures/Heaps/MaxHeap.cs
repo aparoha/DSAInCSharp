@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DSAProblems.DataStructures.Heaps
 {
@@ -39,6 +40,26 @@ namespace DSAProblems.DataStructures.Heaps
             _currentSize = 0;
         }
 
+        public MaxHeap(int capacity, T[] elements = null)
+        {
+            if (elements != null)
+            {
+                _capacity = capacity;
+                _maxHeap = elements;
+                _currentSize = _maxHeap.Length;
+                for (int i = elements.Length / 2; i >= 0; i--)
+                {
+                    HeapifyDown(i);
+                }
+            } 
+            else
+            {
+                _capacity = capacity;
+                _maxHeap = new T[_capacity];
+                _currentSize = 0;
+            }
+        }
+
         public void Insert(T element)
         {
             EnsureExtraCapacity();
@@ -59,7 +80,7 @@ namespace DSAProblems.DataStructures.Heaps
             return item;
         }
 
-        private void HeapifyDown(int index)
+        public void HeapifyDown(int index)
         {
             int leftChild = GetLeftChildIndex(index);
             int rightChild = GetRightChildIndex(index);

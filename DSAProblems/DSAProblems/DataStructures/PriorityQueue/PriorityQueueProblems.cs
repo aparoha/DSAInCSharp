@@ -6,6 +6,16 @@ using System.Threading.Tasks;
 
 namespace DSAProblems.DataStructures.PriorityQueue
 {
+
+
+
+//    { symbol: "amzn", currentPrice: 3000.15, timeStamp: 1638253787, priceChange: -25.91 }
+//For one stock symbol, there can be multiple entries in the input. priceChange reflects the change compared to the previous day. timeStamp is in epoch format.
+//Find:
+//Get the current price for a given symbol
+//top 10 winners
+//top 10 losers
+
     /*
      * 1. Implements an array-backed, quaternary min-heap. 
      * 2. Each element is enqueued with an associated priority that determines the dequeue order. 
@@ -18,6 +28,16 @@ namespace DSAProblems.DataStructures.PriorityQueue
         string result = string.Empty;
         public void RunUsage()
         {
+            //Create empty min heap
+            PriorityQueue<int, int> minHeap = new PriorityQueue<int, int>();
+            //Create empty max heap
+            PriorityQueue<int, int> maxHeap = new PriorityQueue<int, int>(Comparer<int>.Create((a, b) => b.CompareTo(a)));
+            //Construct heap with initial elements
+            PriorityQueue<int, int> heapWithValues = new PriorityQueue<int, int>(new List<(int, int)>
+            {
+                (1, 1), (2, 2), (3,3)
+            });
+
             Console.WriteLine("******Default behavior********");
             PriorityQueue<string, int> queue = new PriorityQueue<string, int>();
             queue.Enqueue("Item A", 0);
@@ -56,8 +76,8 @@ namespace DSAProblems.DataStructures.PriorityQueue
                 Console.WriteLine($"Popped Item : {item}. Priority Was : {priority}");
             }
 
-            Console.WriteLine(string.Join(",", FindKthLargestElements(new int[] {2, 10, 5, 17, 7, 18, 6, 4}, 3)));
-            Console.WriteLine(string.Join(",", FindKthLargestElements2(new int[] { 2, 10, 5, 17, 7, 18, 6, 4 }, 3)));
+            //Console.WriteLine(string.Join(",", FindKthLargestElements(new int[] {2, 10, 5, 17, 7, 18, 6, 4}, 3)));
+            //Console.WriteLine(string.Join(",", FindKthLargestElements2(new int[] { 2, 10, 5, 17, 7, 18, 6, 4 }, 3)));
 
         }
 
@@ -87,7 +107,7 @@ namespace DSAProblems.DataStructures.PriorityQueue
             }
         }
 
-        public List<int> FindKthLargestElements(int[] input, int k)
+        public List<int> FindKthLargestElementsMinHeap(int[] input, int k)
         {
             var result = new List<int>();
             var minHeap = new PriorityQueue<int, int>();
@@ -110,7 +130,7 @@ namespace DSAProblems.DataStructures.PriorityQueue
             return result;
         }
 
-        public List<int> FindKthLargestElements2(int[] input, int k)
+        public List<int> FindKthLargestElementsMaxHeap(int[] input, int k)
         {
             var result = new List<int>();
             var maxHeap = new PriorityQueue<int, int>(Comparer<int>.Create((a,b) => b - a));

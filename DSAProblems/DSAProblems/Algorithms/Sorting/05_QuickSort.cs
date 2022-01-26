@@ -35,9 +35,20 @@ namespace DSAProblems.Algorithms.Sorting
             if(isLomuto)
                 return LomutoSort(arr, 0, arr.Length - 1);
             else
-                return LomutoSort(arr, 0, arr.Length - 1);
+                return HoareSort(arr, 0, arr.Length - 1);
         }
         public int[] LomutoSort(int[] arr, int start, int end)
+        {
+            if (start < end)
+            {
+                int pivotIndex = LomutoPartition(arr, start, end);
+                LomutoSort(arr, start, pivotIndex - 1);
+                LomutoSort(arr, pivotIndex + 1, end);
+            }
+            return arr;
+        }
+
+        public int[] HoareSort(int[] arr, int start, int end)
         {
             if (start < end)
             {
@@ -83,37 +94,34 @@ namespace DSAProblems.Algorithms.Sorting
             }
         }
 
-        private int LomutoPartition(int[] arr, int startIndex, int endIndex)
+        private int LomutoPartition(int[] arr, int low, int high)
         {
-            int pivot = arr[endIndex];
-            
-            Console.WriteLine($"Before partition : Array looks like {string.Join(",", arr)} pivot {pivot}");
-            
-            //We'll swap i and partitionIndex as we go through the list when we find values less than or equal to
-            //pivot this will become our pivot index in the end as we'll swap the pivot
-            //with this element
-            int partitionIndex = startIndex; 
-            //loop through array excluding the pivot which we hold at the end
-            for (int i = startIndex; i < endIndex; i++)
+            //Choose the last element as pivot
+            int pivot = arr[high];
+            Console.WriteLine($"******Low index {low} High index {high} Pivot {pivot}******");
+            //Index of the end of the smaller list
+            int i = low - 1;
+            //Iterate from first element to second last element - till element before pivot
+            for (int j = low; j <= high - 1; j++)
             {
-                //we find value less than pivot so we swap it with partition index
-                if(arr[i] <= pivot)
+                //If current element is smaller than or equal to pivot
+                if (arr[j] <= pivot)
                 {
-                    Console.WriteLine($"{arr[i]} <= {pivot} Swapping {arr[i]} and {arr[partitionIndex]}");
-                    //Swap arr[i] with arr[partitionIndex]
-                    Swap(arr, i, partitionIndex);
-                    //We increase the partitonIndex after the space has been used so one number less
-                    //than pivot swapped
-                    partitionIndex++;
+                    Console.WriteLine($"{arr[j]} <= {pivot}");
+                    i = i + 1;
+                    // insert smaller (for ascending) element to the end
+                    // of the "smaller" list - i.e. insert from j to i;
+                    // here i <= j always
+                    Swap(arr, i, j);
+                    Console.WriteLine($"Swap index {i} index {j} -> {string.Join(",", arr)}");
                 }
             }
-            
-            Console.WriteLine($"Swapping partitionIndex {arr[partitionIndex]} and pivot {arr[endIndex]}");
-            //Swap arr[partitionIndex] with pivot value
-            Swap(arr, partitionIndex, endIndex);
-            Console.WriteLine($"After partition : Array looks like {string.Join(",", arr)}");
-            
-            return partitionIndex;
+            // Now i points to last element smaller than pivot
+            i = i + 1;
+            //Swap pivot to correct position
+            Swap(arr, i, high);
+            Console.WriteLine($"Swapping pivot to correct position - swapping index {i} index {high} -> {string.Join(",", arr)}");
+            return i;
         }
 
         private void Swap(int[] arr, int i, int pIndex)

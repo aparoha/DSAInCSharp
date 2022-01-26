@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DSAProblems.DataStructures.Heaps
 {
@@ -9,10 +10,10 @@ namespace DSAProblems.DataStructures.Heaps
             minHeap.Insert(new Employee(40));
             minHeap.Insert(new Employee(-1));
 
-            Console.WriteLine(minHeap.Delete().Salary);
-            Console.WriteLine(minHeap.Delete().Salary);
-            Console.WriteLine(minHeap.Delete().Salary);
-            Console.WriteLine(minHeap.Delete().Salary);
+            while (minHeap.Count > 0)
+            {
+                Console.WriteLine(minHeap.Delete().Salary);
+            }
 
     */
     public class MinHeap<T> where T : IComparable<T>
@@ -55,7 +56,7 @@ namespace DSAProblems.DataStructures.Heaps
             _minHeap[0] = _minHeap[_currentSize - 1];
             _minHeap[_currentSize - 1] = default(T);
             _currentSize--;
-            HeapifyDown();
+            HeapifyDown(0);
             return item;
         }
 
@@ -65,9 +66,11 @@ namespace DSAProblems.DataStructures.Heaps
             int rightChild = GetRightChildIndex(index);
             int smallest = index;
 
+            //Comparer<T>.Default.Compare(_minHeap[leftChild], _minHeap[smallest]) < 0 - other way to compare
             //if left child is smaller
             if (leftChild < _currentSize && _minHeap[leftChild].CompareTo(_minHeap[smallest]) < 0)
                 smallest = leftChild;
+            //if right child is smaller
             if (rightChild < _currentSize && _minHeap[rightChild].CompareTo(_minHeap[smallest]) < 0)
                 smallest = rightChild;
 

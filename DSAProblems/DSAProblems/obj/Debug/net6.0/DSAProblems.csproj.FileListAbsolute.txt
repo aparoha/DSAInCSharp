@@ -1,0 +1,14 @@
+C:\Users\AParoha\DSAInCSharp\DSAProblems\DSAProblems\obj\Debug\net6.0\DSAProblems.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\AParoha\DSAInCSharp\DSAProblems\DSAProblems\obj\Debug\net6.0\DSAProblems.csproj.CoreCompileInputs.cache
+C:\Users\AParoha\DSAInCSharp\DSAProblems\DSAProblems\bin\Debug\net6.0\DSAProblems.exe
+C:\Users\AParoha\DSAInCSharp\DSAProblems\DSAProblems\bin\Debug\net6.0\DSAProblems.dll.config
+C:\Users\AParoha\DSAInCSharp\DSAProblems\DSAProblems\bin\Debug\net6.0\DSAProblems.deps.json
+C:\Users\AParoha\DSAInCSharp\DSAProblems\DSAProblems\bin\Debug\net6.0\DSAProblems.runtimeconfig.json
+C:\Users\AParoha\DSAInCSharp\DSAProblems\DSAProblems\bin\Debug\net6.0\DSAProblems.dll
+C:\Users\AParoha\DSAInCSharp\DSAProblems\DSAProblems\bin\Debug\net6.0\ref\DSAProblems.dll
+C:\Users\AParoha\DSAInCSharp\DSAProblems\DSAProblems\bin\Debug\net6.0\DSAProblems.pdb
+C:\Users\AParoha\DSAInCSharp\DSAProblems\DSAProblems\obj\Debug\net6.0\DSAProblems.dll
+C:\Users\AParoha\DSAInCSharp\DSAProblems\DSAProblems\obj\Debug\net6.0\ref\DSAProblems.dll
+C:\Users\AParoha\DSAInCSharp\DSAProblems\DSAProblems\obj\Debug\net6.0\DSAProblems.pdb
+C:\Users\AParoha\DSAInCSharp\DSAProblems\DSAProblems\obj\Debug\net6.0\DSAProblems.genruntimeconfig.cache
+C:\Users\AParoha\DSAInCSharp\DSAProblems\DSAProblems\obj\Debug\net6.0\DSAProblems.csproj.AssemblyReference.cache

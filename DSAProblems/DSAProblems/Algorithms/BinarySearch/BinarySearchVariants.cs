@@ -2,15 +2,243 @@
 
 namespace DSAProblems.Algorithms.BinarySearch
 {
-    
+
     //https://medium.com/better-programming/three-smart-ways-to-use-binary-search-in-coding-interviews-250ba296cb82
     //https://www.junhaow.com/lc/notes/binary-search-template-notes.html
     //https://www.programmersought.com/article/60462110795/
-    //https://www.junhaow.com/lc/notes/binary-search-template-notes.html
     //https://labuladong.gitbook.io/algo-en/iii.-algorithmic-thinking/detailedbinarysearch#thirdly-we-implement-binary-search-to-find-right-border
     //https://leetcode.com/discuss/general-discussion/786126/Python-Powerful-Ultimate-Binary-Search-Template.-Solved-many-problems
-    class BinarySearchVariants
+
+    /*All of the following code examples use an "inclusive" upper bound (i.e. right = N-1 initially). Any of the examples can be converted into an equivalent example using "exclusive" upper bound (i.e. right = N initially) by making the following simple changes (which simply increase high by 1):
+
+        change right = N-1 to right = N
+        change right = mid-1 to right = mid
+        (for recursive algorithm) change if (right < left) to if (right <= left)
+        (for iterative algorithm) change while (left <= right) to while (low < right)
+     * 
+     * 
+     * 
+    */
+    public class BinarySearchVariants
     {
+        public int BinarySearchStandard(int[] arr, int target)
+        {
+            int left = 0, right = arr.Length - 1;
+            while(left <= right)
+            {
+                int mid = left + (right - left) / 2;
+                if(target == arr[mid])
+                    return mid;
+                if(target < arr[mid])
+                    right = mid - 1;
+                else
+                    left = mid + 1;
+            }
+            return -1;
+        }
+
+        /*
+         * 1. The following algorithms return the leftmost place where the given element can be correctly inserted (and still maintain the sorted order). 
+         * 2. This is the lower (inclusive) bound of the range of elements that are equal to the given value (if any). 
+         * 3. Equivalently, this is the lowest index where the element is greater than or equal to the given value (since if it were any lower, it would violate the ordering), or 1 past the last index if such an element does not exist. 
+         * 4. This algorithm does not determine if the element is actually found. This algorithm only requires one comparison per level.
+         * 
+         * 
+         * 
+         * 
+         */
+        public int BinarySearchLowerBound(int[] arr, int target)
+        {
+            int left = 0, right = arr.Length - 1;
+            while (left <= right)
+            {
+                int mid = left + (right - left) / 2;
+                if(target <= arr[mid])
+                    right = mid - 1;
+                else
+                    left = mid + 1;
+            }
+            return left;
+        }
+
+        /* 1. Also called rightmost insertion point - rightmost place where the given element can be correctly inserted (and still maintain the sorted order)
+         * 2. This is the upper (exclusive) bound of the range of elements that are equal to the given value (if any). 
+         * 3. Equivalently, this is the lowest index where the element is greater than the given value, or 1 past the last index if such an element does not exist. 
+         * 4. This algorithm does not determine if the element is actually found. This algorithm only requires one comparison per level.
+         * 5. This algorithm is almost exactly the same as the lower bound, except for how the inequality treats equal values.
+         * 6. Index of the smallest element > target
+         * 
+         * 
+        */
+        public int BinarySearchUpperBound(int[] arr, int target)
+        {
+            int left = 0, right = arr.Length - 1;
+            while (left <= right)
+            {
+                int mid = left + (right - left) / 2;
+                if (target < arr[mid])
+                    right = mid - 1;
+                else
+                    left = mid + 1;
+            }
+            return left;
+        }
+
+        public int BinarySearchFindFirst(int[] arr, int target)
+        {
+            int left = BinarySearchLowerBound(arr, target);
+            if (left >= arr.Length || arr[left] != target)
+                return -1;
+            return left;
+        }
+
+        public int BinarySearchFindLast(int[] arr, int target)
+        {
+            int right = BinarySearchUpperBound(arr, target) - 1;
+            if (right < 0 || arr[right] != target)
+                return -1;
+            return right;
+        }
+
+        public int CountOfElements(int[] arr, int target)
+        {
+            int firstOccurIndex = BinarySearchFindFirst(arr, target);
+            int lastOccurIndex = BinarySearchFindLast(arr, target);
+            if (firstOccurIndex != -1 && lastOccurIndex != -1)
+                return lastOccurIndex - firstOccurIndex + 1;
+            return 0;
+        }
+
+        //Lower bound
+        public int BinarySearchNextSmallest(int[] arr, int target)
+        {
+            int left = 0, right = arr.Length - 1;
+            if (right == 0) return -1;
+            if (target > arr[right]) return right;
+            int result = -1;
+            while (left <= right)
+            {
+                int mid = left + (right - left) / 2;
+                if (target <= arr[mid])
+                    right = mid - 1;
+                else
+                {
+                    result = mid;
+                    left = mid + 1;
+                }
+            }
+            return result;
+        }
+
+        //Upper bound
+        public int BinarySearchNextLargest(int[] arr, int target)
+        {
+            int left = 0, right = arr.Length - 1;
+            int result = -1;
+            while (left <= right)
+            {
+                int mid = left + (right - left) / 2;
+                if (target < arr[mid])
+                {
+                    result = mid;
+                    right = mid - 1;
+                }
+                else
+                    left = mid + 1;
+            }
+            return result;
+        }
+
+        public int NearestNeighbor(int[] arr, int target)
+        {
+            int left = 0, right = arr.Length - 1;
+            while (left <= right)
+            {
+                int mid = left + (right - left) / 2;
+                if (target == arr[mid])
+                    return mid;
+                if (target < arr[mid])
+                    right = mid - 1;
+                else
+                    left = mid + 1;
+            }
+            if(left >= arr.Length) return right;
+            else if(right < 0) return left;
+            else if(arr[left] - target < Math.Abs(arr[right] - target)) return left;
+            else return right;
+        }
+
+        //                          2,3,5,8,11,12
+        //Rotate anti clockwise / towards right one time - 12,2,3,5,8,11
+        //Rotate anti clockwise / towards right two time - 11,12,2,3,5,8
+        //Circularly sorted array
+        //No duplicates
+        //No of rotations - index of minimum element or pivot element
+
+        public int SearchRotatedSortedArrayWithoutDuplicates(int[] nums, int target)
+        {
+            if (nums == null || nums.Length == 0)
+                return -1;
+            int low = 0, high = nums.Length - 1;
+            while (low <= high)
+            {
+                int mid = low + (high - low) / 2;
+                if (target == nums[mid])
+                    return mid;
+                //left sorted portion
+                if (nums[low] <= nums[mid])
+                {
+                    if (target >= nums[low] && target <= nums[mid])
+                        high = mid - 1;
+                    else
+                        low = mid + 1;
+                }
+                //right sorted portion
+                else
+                {
+                    if (target >= nums[mid] && target <= nums[high])
+                        low = mid + 1;
+                    else
+                        high = mid - 1;
+                }
+            }
+            return -1;
+        }
+
+        public bool SearchRotatedSortedArrayWithDuplicates(int[] nums, int target)
+        {
+            if (nums == null || nums.Length == 0)
+                return false;
+            int low = 0, high = nums.Length - 1;
+            while (low <= high)
+            {
+                int mid = low + (high - low) / 2;
+                if (target == nums[mid])
+                    return true;
+                if (nums[mid] == nums[high])
+                    high--;
+                else if (nums[mid] == nums[low])
+                    low++;
+                //left sorted portion
+                else if (nums[low] <= nums[mid])
+                {
+                    if (target >= nums[low] && target <= nums[mid])
+                        high = mid - 1;
+                    else
+                        low = mid + 1;
+                }
+                //right sorted portion
+                else
+                {
+                    if (target >= nums[mid] && target <= nums[high])
+                        low = mid + 1;
+                    else
+                        high = mid - 1;
+                }
+            }
+            return false;
+        }
+
         //https://rosettacode.org/wiki/Binary_search
         //inclusive (high = N -1) vs exclusive upper bound (high = N)
         //How to convert inclusive upper bound to exclusive upper bound?
