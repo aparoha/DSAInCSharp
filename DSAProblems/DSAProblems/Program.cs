@@ -161,8 +161,11 @@ namespace DSAProblems
             Console.WriteLine(qs.Median(new int[] { 32, 22, 55, 36, 50, 9 }));
             Console.WriteLine(qs.Median(new int[] { 32, 22, 9, 35, 50 }));
 
-            Console.WriteLine("MOM " + qs.Median(new int[] { 32, 22, 55, 36, 50, 9 }));
-            Console.WriteLine("MOM " + qs.Median(new int[] { 32, 22, 9, 35, 50 }));
+            Console.WriteLine("MOM " + qs.MedianMom(new int[] { 32, 22, 55, 36, 50, 9 }));
+            Console.WriteLine("MOM " + qs.MedianMom(new int[] { 32, 22, 9, 35, 50 }));
+
+            Console.WriteLine("MOM 2" + qs.MedianMom2(new int[] { 32, 22, 55, 36, 50, 9 }));
+            Console.WriteLine("MOM 2" + qs.MedianMom2(new int[] { 32, 22, 9, 35, 50 }));
 
             Console.WriteLine(qs.KthSmallest(arr, 1));
             Console.WriteLine(qs.KthSmallest(arr, 2));

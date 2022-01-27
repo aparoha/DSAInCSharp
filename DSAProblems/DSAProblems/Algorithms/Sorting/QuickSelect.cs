@@ -6,62 +6,6 @@ namespace DSAProblems.Algorithms.Sorting
 {
     public class QuickSelect
     {
-        //Median of medians
-        //1. Divide array into chunks
-        //2. Calculate median directly for each chunk
-        //3. Recursively calculate median of set of medians from previous step
-        //4. Use final median of medians as the pivot element
-        private int SelectMoM(IEnumerable<int> list, int position)
-        {
-            var values = new List<int>(list);
-            if (values.Count() < 10)
-            {
-                var l = new List<int>(values);
-                l.Sort();
-                return l[position - 1];
-            }
-
-            var chunkedList = new List<List<int>>();
-            var chunkSize = values.Count() / 5;
-            var wrapper = new List<int>(values);
-
-            for (var i = 0; i < chunkSize; i++)
-                chunkedList.Add(new List<int>(wrapper.GetRange(i * 5, 5)));
-
-            var medians = chunkedList.Select(sl => SelectMoM(sl, 3)).ToList();
-
-            var medianOfMedians = SelectMoM(medians, values.Count() / 10);
-
-            var l1 = new List<int>();
-            var l3 = new List<int>();
-
-            foreach (var d in values)
-                if (d < medianOfMedians)
-                    l1.Add(d);
-                else
-                    l3.Add(d);
-
-            if (position <= l1.Count)
-                return SelectMoM(l1, position);
-            else if (position > l1.Count + l3.Count)
-                return SelectMoM(l3, position - l1.Count - l3.Count);
-            else
-                return medianOfMedians;
-        }
-
-        public int MedianMom(int[] arr)
-        {
-            var values = new List<int>(arr);
-            if (!values.Any())
-                throw new ArgumentException("Must provide at least 1 item");
-
-            var count = values.Count();
-            if (count % 2 == 0)
-                return SelectMoM(values, count / 2 + 1);
-            else
-                return SelectMoM(values, count / 2);
-        }
-
         public int Median(int[] arr)
         {
             int length = arr.Length;
