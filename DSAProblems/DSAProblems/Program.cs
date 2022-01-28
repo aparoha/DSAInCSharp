@@ -154,12 +154,18 @@ namespace DSAProblems
     {
         static void Main(string[] args)
         {
+
+            var rp1 = new RecursionProblems();
+            Console.WriteLine(string.Join(",", rp1.GetPermutations("AABC")));
+            Console.WriteLine(string.Join(",", rp1.Permute("AABC")));
             QuickSelect qs = new QuickSelect();
             var arr = new int[] { 7, 2, 1, 8, 6, 3, 5, 4};
             Console.WriteLine($"Original Array {string.Join(",", arr)}");
 
             Console.WriteLine(qs.Median(new int[] { 32, 22, 55, 36, 50, 9 }));
             Console.WriteLine(qs.Median(new int[] { 32, 22, 9, 35, 50 }));
+
+            
 
             Console.WriteLine(qs.KthSmallest(arr, 1));
             Console.WriteLine(qs.KthSmallest(arr, 2));

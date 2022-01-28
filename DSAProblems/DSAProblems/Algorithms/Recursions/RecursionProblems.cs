@@ -562,5 +562,102 @@ namespace DSAProblems.Algorithms.Recursions
             return paths;
         }
 
+        public List<string> GetMazePaths(int sourceRow, int sourceColumn, int dr, int dc)
+        {
+            if(sourceRow == dr && sourceColumn == dc)
+            {
+                return new List<string>() { string.Empty };
+            }
+
+            List<string> verticalPaths = new List<string>();
+            List<string> horizontalPaths = new List<string>();
+
+            if(sourceRow < dr)
+                verticalPaths = GetMazePaths(sourceRow + 1, sourceColumn, dr, dc);
+
+            if(sourceColumn < dc)
+                horizontalPaths = GetMazePaths(sourceRow, sourceColumn + 1, dr, dc);
+
+            List<string> paths = new List<string>();
+            foreach(var path in horizontalPaths)
+                paths.Add("H" + path);
+            foreach (var path in verticalPaths)
+                paths.Add("V" + path);
+
+            return paths;
+        }
+
+        //How to handle duplicates and return result in lexicographically order?
+        //e.g. AABC - 12 outputs
+        //AABC, AACB, ABAC, ABCA, ACAB, ACBA, BAAC, BACA, BCAA, CAAB, CABA, CBAA
+        //Formula - 4!/2! = 12 (as A is duplicated 2 times so divided by 2!)
+        //For AABBBC - 6!/2! * 3! (as A came 2 times and B came 3 times)
+        public List<string> GetPermutations(string str)
+        {
+            List<string> result = new List<string>();
+            GetPermutationsInternal(str, string.Empty, result);
+            return result;
+        }
+
+        private void GetPermutationsInternal(string input, string resultSoFar, List<string> result)
+        {
+            if(input.Length == 0)
+            {
+                result.Add(resultSoFar);
+                return;
+            }
+            //How many choices we have? - no of characters in original string
+            for(int index = 0; index < input.Length; index++)
+            {
+                //abcdefghi -> ch is d, left substring is "abc", right substring is "efghi"
+                char ch = input[index]; //choose character
+                string leftSubString = input.Substring(0, index);
+                string rightSubString = input.Substring(index + 1);
+                string restOfInput = leftSubString + rightSubString;
+                //bc  a    null
+                //c   ab   null 
+                //""  abc  null
+                //b   ac   abc 
+                //""  acb  abc 
+                //ac  b    abc, acb
+                GetPermutationsInternal(restOfInput, resultSoFar + ch, result);
+            }
+        }
+
+        public List<string> Permute(string str)
+        {
+            var answer = new List<string>();
+            int n = str.Length;
+            Ank(str, n, 2, 0, new bool[n], new StringBuilder(), answer);
+            return answer;
+        }
+
+        private static void Ank(string str, int n, int k, int depth, bool[] used, StringBuilder current, List<string> answer)
+        {
+            if (k == depth)
+            {
+                answer.Add(current.ToString());
+                return;
+            }
+            else
+            {
+                for (int i = 0; i < n; i++)
+                {
+                    if (used[i])
+                        continue;
+                    //Generate the next solution from current
+                    current.Append(str[i]);
+                    used[i] = true;
+                    Console.WriteLine(string.Join(",", current));
+                    Ank(str, n, k, depth + 1, used, current, answer);
+                    //Backtrack to the previous partial state
+                    current.Remove(current.Length - 1, 1);
+                    Console.WriteLine($"Backtrack {string.Join(",", current)}");
+                    used[i] = false;
+                }
+            }
+        }
+
+
     }
 }

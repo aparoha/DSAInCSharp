@@ -27,10 +27,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Algorithms\Backtracking\" />
+    <Folder Include="LLD\LockerManagement\NewFolder\" />
     <Folder Include="LLD\ParkingLot\Commands\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.2.8" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
     <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.3.242703">
       <PrivateAssets>all</PrivateAssets>
