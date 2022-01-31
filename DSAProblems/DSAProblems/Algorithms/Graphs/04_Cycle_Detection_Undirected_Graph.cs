@@ -21,20 +21,20 @@ namespace DSAProblems.Algorithms.Graphs
         public bool IsCycleBfs(int n, Dictionary<int, List<int>> graph)
         {
             bool[] visited = new bool[n];
-            Queue<(int, int)> queue = new Queue<(int, int)>();
             for(int i = 0; i < n; i++)
             {
                 if (!visited[i])
                 {
-                    if(IsCycleBfs(i, graph, visited, queue))
+                    if(IsCycleBfs(i, graph, visited))
                         return true;
                 }
             }
             return false;
         }
 
-        private bool IsCycleBfs(int node, Dictionary<int, List<int>> graph, bool[] visited, Queue<(int, int)> queue)
+        private bool IsCycleBfs(int node, Dictionary<int, List<int>> graph, bool[] visited)
         {
+            Queue<(int, int)> queue = new Queue<(int, int)>();
             visited[node] = true;
             queue.Enqueue((node, -1));
             while(queue.Count > 0)
@@ -46,9 +46,43 @@ namespace DSAProblems.Algorithms.Graphs
                         visited[neighbor] = true;
                         queue.Enqueue((neighbor, current)); //Add recently popped node as parent
                     }
-                    else if(neighbor != parent) //Came across visited node which is not parent
+                    //Found a cross edge, neighbor is visited and its not parent
+                    else if (neighbor != parent)
                         return true;
                 }
+            }
+            return false;
+        }
+
+        public bool IsCycleDfs(int n, Dictionary<int, List<int>> graph)
+        {
+            bool[] visited = new bool[n];
+            for (int i = 0; i < n; i++)
+            {
+                if (!visited[i])
+                {
+                    if (IsCycleDfs(i, graph, visited, -1))
+                        return true;
+                }
+            }
+            return false;
+        }
+
+        private bool IsCycleDfs(int current, Dictionary<int, List<int>> graph, bool[] visited, int parent)
+        {
+            visited[current] = true;
+            foreach (int neighbor in graph[current])
+            {
+                if (!visited[neighbor])
+                {
+                    if(IsCycleDfs(neighbor, graph, visited, current))
+                        return true;
+                }
+                //if neighbor is discovered and its not parent
+                //found a back edge
+                else if (neighbor != parent)
+                    return true;
+                    
             }
             return false;
         }

@@ -10,17 +10,17 @@ namespace DSAProblems.Algorithms.Graphs
         {
             List<int> result = new List<int>();
             bool[] visited = new bool[n];
-            Queue<int> queue = new Queue<int>();
             for(int i = 0; i < n; i++)
             {
                 if (!visited[i])
-                    Bfs(i, visited, graph, result, queue);
+                    Bfs(i, visited, graph, result);
             }
             return result;
         }
 
-        private void Bfs(int node, bool[] visited, Dictionary<int, List<int>> graph, List<int> result, Queue<int> queue)
+        private void Bfs(int node, bool[] visited, Dictionary<int, List<int>> graph, List<int> result)
         {
+            Queue<int> queue = new Queue<int>();
             visited[node] = true;
             queue.Enqueue(node);
             while (queue.Count > 0)
