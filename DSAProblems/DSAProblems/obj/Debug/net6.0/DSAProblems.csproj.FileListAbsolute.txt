@@ -14,3 +14,4 @@ C:\Users\AParoha\DSAInCSharp\DSAProblems\DSAProblems\obj\Debug\net6.0\DSAProblem
 C:\Users\AParoha\DSAInCSharp\DSAProblems\DSAProblems\bin\Debug\net6.0\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
 C:\Users\AParoha\DSAInCSharp\DSAProblems\DSAProblems\bin\Debug\net6.0\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
 C:\Users\AParoha\DSAInCSharp\DSAProblems\DSAProblems\obj\Debug\net6.0\DSAProblems.csproj.CopyComplete
+C:\Users\AParoha\DSAInCSharp\DSAProblems\DSAProblems\obj\Debug\net6.0\DSAProblems.csproj.AssemblyReference.cache

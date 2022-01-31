@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DSAProblems.DataStructures
+namespace DSAProblems.DataStructures.Tree.Tries
 {
-    public class Trie
+    public class TrieWithArray
     {
         TrieNode root;
 
@@ -16,11 +16,11 @@ namespace DSAProblems.DataStructures
             public bool isEnd { get; set; }
             public TrieNode()
             {
-                this.children = new TrieNode[26];
+                children = new TrieNode[26];
             }
         }
 
-        public Trie()
+        public TrieWithArray()
         {
             root = new TrieNode();
         }

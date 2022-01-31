@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using DSAProblems.Algorithms.BinarySearch;
+using DSAProblems.Algorithms.Graphs;
 using DSAProblems.Algorithms.Recursions;
 using DSAProblems.Algorithms.Sorting;
 using DSAProblems.DataStructures;
@@ -11,6 +13,7 @@ using DSAProblems.DataStructures.LinkedList;
 using DSAProblems.DataStructures.PriorityQueue;
 using DSAProblems.DynamicProgramming;
 using DSAProblems.LeetCode.BFS;
+using DSAProblems.LLD.ProducerConsumer;
 
 namespace DSAProblems
 {
@@ -154,7 +157,37 @@ namespace DSAProblems
     {
         static void Main(string[] args)
         {
+            Console.WriteLine(FindRedundantConnection(new int[][]
+            {
+                new int[] {1, 2},
+                new int[] {1, 3},
+                new int[] {2, 3}
+            }));
+            Console.WriteLine("Hello, world!");
+            Console.WriteLine(LongestSubstring("aaabb", 3));
 
+            // This using block defines the lifetime of the queue and therefore the lifetime of all producers and consumers
+            using (SynchronizedQueue<string> sq = new SynchronizedQueue<string>(true))
+            {
+                // Now we're creating several producers and consumers
+                AbstractQueueProducer<string> producer1 = new DummyProducer(sq);
+                AbstractQueueProducer<string> producer2 = new DummyProducer(sq);
+                AbstractQueueProducer<string> producer3 = new DummyProducer(sq);
+                AbstractQueueProducer<string> producer4 = new DummyProducer(sq);
+                AbstractQueueConsumer<string> consumer1 = new DummyConsumer(sq);
+                AbstractQueueConsumer<string> consumer2 = new DummyConsumer(sq);
+                AbstractQueueConsumer<string> consumer3 = new DummyConsumer(sq);
+                AbstractQueueConsumer<string> consumer4 = new DummyConsumer(sq);
+                AbstractQueueConsumer<string> consumer5 = new DummyConsumer(sq);
+
+                // All consumers/producers have been created. Now let's have the main thread rest for a while.
+                Thread.Sleep(5000);
+
+                // Alright, enough sleeping for the main thread! Let's get out of this using block and therefore kill all consumers/workers and the queue itself!
+            }
+
+            Console.WriteLine("Goodbye, world! (press enter)");
+            Console.Read();
             var rp1 = new RecursionProblems();
             Console.WriteLine(string.Join(",", rp1.GetPermutations("AABC")));
             Console.WriteLine(string.Join(",", rp1.Permute("AABC")));
@@ -228,6 +261,151 @@ namespace DSAProblems
             //Console.WriteLine(kthLargest.Add(9));
             //Console.WriteLine(kthLargest.Add(4));
             Console.ReadKey();
+        }
+
+        public static int[] FindRedundantConnection(int[][] edges)
+        {
+            int n = edges.Length;
+            Dictionary<int, List<int>> graph = new Dictionary<int, List<int>>();
+            bool[] visited = new bool[n];
+            for (int i = 1; i <= n; i++)
+                graph.Add(i, new List<int>());
+            foreach (int[] edge in edges)
+            {
+                if (HasPath(edge[0], edge[1], visited, graph))
+                    return edge;
+                graph[edge[0]].Add(edge[1]);
+                graph[edge[1]].Add(edge[0]);
+            }
+            return null;
+        }
+
+        private static bool HasPath(int source, int target, bool[] visited, Dictionary<int, List<int>> graph)
+        {
+            if (source == target)
+                return true;
+            visited[source] = true;
+            foreach (var node in graph[source])
+            {
+                if (!visited[node])
+                    if (HasPath(node, target, visited, graph))
+                        return true;
+            }
+            return false;
+        }
+
+        public static int LongestSubstring(string s, int k)
+        {
+            if (string.IsNullOrEmpty(s))
+                return 0;
+            HashSet<char> uniqueChars = new HashSet<char>(s);
+            int result = 0;
+            for (int i = 1; i <= uniqueChars.Count; i++)
+            {
+                //Do sliding window for each character
+                Dictionary<char, int> freqMap = new Dictionary<char, int>();
+                int currUnique = 0, countAtLeastK = 0;
+                for (int left = 0, right = 0; right < s.Length; right++)
+                {
+                    if (!freqMap.ContainsKey(s[right]))
+                        freqMap.Add(s[right], 1);
+                    else
+                        freqMap[s[right]] += 1;
+                    if (freqMap[s[right]] == k)
+                        countAtLeastK++;
+                    if (freqMap[s[right]] == 1)
+                        currUnique++;
+                    while (freqMap.Count > i && left < right)
+                    {
+                        char leftChar = s[left];
+                        if (freqMap.ContainsKey(leftChar))
+                        {
+                            if (freqMap[leftChar] == k)
+                                countAtLeastK--;
+                            freqMap[leftChar] -= 1;
+                        }
+                        else
+                            currUnique--;
+                        left++;
+                    }
+                    if (currUnique == countAtLeastK) //item is at least k repeat
+                        result = Math.Max(result, right - left + 1);
+                }
+            }
+            return result;
+        }
+
+        private static bool AllItemsAtLeastKRepeat(Dictionary<char, int> dict, int k)
+        {
+            foreach (var item in dict)
+            {
+                if (item.Value < k)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        public int LongestSubstringWithKDistinctCharacters(string s, int k)
+        {
+            if(string.IsNullOrEmpty(s))
+                return 0;
+            int maxLength = int.MinValue;
+            Dictionary<char, int> freqMap = new Dictionary<char, int>();
+            for(int left = 0, right = 0; right < s.Length; right++)
+            {
+                if(!freqMap.ContainsKey(s[right]))
+                    freqMap.Add(s[right], 1);
+                else
+                    freqMap[s[right]] += 1;
+                while(freqMap.Count > k)
+                {
+                    char leftChar = s[left];
+                    freqMap[leftChar] -= 1;
+                    if(freqMap[leftChar] == 0)
+                        freqMap.Remove(leftChar);
+                    left++;
+                }
+                maxLength = Math.Max(maxLength, right - left + 1);
+            }
+            return maxLength;
+        }
+        public static int MaxSumSubarrayOfSizeK(int[] nums, int k)
+        {
+            if(nums.Length == 0)
+                return 0;
+            int maxSum = int.MinValue;
+            int runningSum = 0;
+            for(int left = 0, right = 0; right < nums.Length; right++)
+            {
+                runningSum += nums[right];
+                if(right - left + 1 == k)
+                {
+                    maxSum = Math.Max(runningSum, maxSum);
+                    runningSum -= nums[left];
+                    left++;
+                }
+            }
+            return maxSum;
+        }
+
+        public static int SmallestSubarrayWithGivenSum(int[] nums, int targetSum)
+        {
+            if (nums.Length == 0)
+                return 0;
+            int minWindowSize = int.MaxValue;
+            int currentWindowSum = 0;
+            for(int left = 0, right = 0; right < nums.Length; right++)
+            {
+                currentWindowSum += nums[right];
+                while(currentWindowSum >= targetSum)
+                {
+                    minWindowSize = Math.Min(minWindowSize, right - left + 1);
+                    currentWindowSum -= nums[left];
+                    left++;
+                }
+            }
+            return minWindowSize;
         }
 
         public static int FindLeastNumOfUniqueInts(int[] arr, int k)
