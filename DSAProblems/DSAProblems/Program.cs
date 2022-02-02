@@ -157,14 +157,14 @@ namespace DSAProblems
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(FindRedundantConnection(new int[][]
+            _05_Cycle_Detection_Directed_Graph cd = new _05_Cycle_Detection_Directed_Graph();
+            Console.WriteLine(cd.IsCycleDfs(4, new Dictionary<int, List<int>>() 
             {
-                new int[] {1, 2},
-                new int[] {1, 3},
-                new int[] {2, 3}
+                {0, new List<int> {1, 2} },
+                {1, new List<int> {2} },
+                {2, new List<int> {0, 3} },
+                {3, new List<int> {3} },
             }));
-            Console.WriteLine("Hello, world!");
-            Console.WriteLine(LongestSubstring("aaabb", 3));
 
             // This using block defines the lifetime of the queue and therefore the lifetime of all producers and consumers
             using (SynchronizedQueue<string> sq = new SynchronizedQueue<string>(true))

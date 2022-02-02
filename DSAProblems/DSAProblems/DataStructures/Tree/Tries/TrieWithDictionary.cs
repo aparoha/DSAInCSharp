@@ -17,26 +17,29 @@ namespace DSAProblems.DataStructures.Tree.Tries
      * 12. Longest common prefix
 
      */
+    public class TrieNode
+    {
+        public Dictionary<char, TrieNode> Children { get; }
+        public bool IsEndOfWord { get; internal set; } //indicates whether a TrieNode corresponds to the last character of a word
+        public int PrefixCount { get; internal set; }
+        public int EndsWithCount { get; internal set; }
+        public string Value { get; }
+        public TrieNode(string prefix)
+        {
+            Value = prefix;
+            Children = new Dictionary<char, TrieNode>();
+        }
+    }
+
     public class TrieWithDictionary
     {
-        private TrieNode root;
+        private readonly TrieNode root;
+
+        public TrieNode Root => root;
 
         public TrieWithDictionary()
         {
             root = new TrieNode("");
-        }
-        private class TrieNode
-        {
-            public Dictionary<char, TrieNode> Children { get; }
-            public bool IsEndOfWord { get; internal set; } //indicates whether a TrieNode corresponds to the last character of a word
-            public int PrefixCount { get; internal set; }
-            public int EndsWithCount { get; internal set; }
-            public string Value { get; }
-            public TrieNode(string prefix)
-            {
-                Value = prefix;
-                Children = new Dictionary<char, TrieNode>();
-            }
         }
 
         public void Insert(string word)

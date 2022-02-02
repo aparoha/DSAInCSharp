@@ -45,22 +45,22 @@ namespace DSAProblems.Algorithms.Graphs
             Dictionary<int, List<int>> graph = CreateGraph(n, edges);
             int count = 0;
             bool[] visited = new bool[n];
-            Queue<int> queue = new Queue<int>();
             for (int i = 0; i < n; i++)
             {
                 if (!visited[i])
                 {
-                    Bfs(graph, visited, queue, i);
+                    Bfs(graph, visited, i);
                     count++;
                 }
             }
             return count;
         }
 
-        private static void Bfs(Dictionary<int, List<int>> graph, bool[] visited, Queue<int> queue, int i)
+        private static void Bfs(Dictionary<int, List<int>> graph, bool[] visited, int i)
         {
-            queue.Enqueue(i);
+            Queue<int> queue = new Queue<int>();
             visited[i] = true;
+            queue.Enqueue(i);
             while (queue.Count > 0)
             {
                 int current = queue.Dequeue();
@@ -90,13 +90,11 @@ namespace DSAProblems.Algorithms.Graphs
 
         private void Dfs(int node, bool[] visited, Dictionary<int, List<int>> graph)
         {
+            visited[node] = true;
             foreach (int neighbor in graph[node])
             {
                 if (!visited[neighbor])
-                {
-                    visited[neighbor] = true;
                     Dfs(neighbor, visited, graph);
-                }
             }
         }
     }
