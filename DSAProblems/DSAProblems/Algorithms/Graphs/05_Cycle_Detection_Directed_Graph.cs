@@ -43,31 +43,56 @@ namespace DSAProblems.Algorithms.Graphs
             bool[] dfsVisited = new bool[n];
             for (int i = 0; i < n; i++)
             {
-                if (!visited[i])
-                {
-                    if (IsCycleDfs(i, graph, visited, dfsVisited))
-                        return true;
-                }
+                if (IsCycleDfs(i, graph, visited, dfsVisited))
+                    return true;
             }
             return false;
         }
 
         private bool IsCycleDfs(int current, Dictionary<int, List<int>> graph, bool[] visited, bool[] dfsVisited)
         {
+            if(dfsVisited[current])
+                return true;
+            if(visited[current])
+                return false;
             visited[current] = true;
             dfsVisited[current] = true;
             foreach(int neighbor in graph[current])
             {
-                if (!visited[neighbor])
-                {
-                    if(IsCycleDfs(neighbor, graph, visited, dfsVisited))
-                        return true;
-                }
-                else if(dfsVisited[neighbor])
+                if (IsCycleDfs(neighbor, graph, visited, dfsVisited))
                     return true;
             }
             dfsVisited[current] = false;
             return false;
+        }
+
+        public bool IsCycleBfs(int n, Dictionary<int, List<int>> graph)
+        {
+            int[] inDegrees = new int[n];
+            for (int i = 0; i < n; i++)
+            {
+                foreach (int node in graph[i])
+                    inDegrees[node]++;
+            }
+            Queue<int> queue = new Queue<int>();
+            for (int i = 0; i < n; i++)
+            {
+                if (inDegrees[i] == 0)
+                    queue.Enqueue(i);
+            }
+            int count = 0;
+            while (queue.Count > 0)
+            {
+                int current = queue.Dequeue();
+                count++;
+                foreach (int neighbor in graph[current])
+                {
+                    inDegrees[neighbor]--;
+                    if (inDegrees[neighbor] == 0)
+                        queue.Enqueue(neighbor);
+                }
+            }
+            return count != n;
         }
     }
 }

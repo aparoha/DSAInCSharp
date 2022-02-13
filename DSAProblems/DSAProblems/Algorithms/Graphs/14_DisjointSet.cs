@@ -63,17 +63,17 @@ namespace DSAProblems.DataStructures
                 if (parentA == parentB) return;
 
                 int currentSize = parentA.Size + parentB.Size;
-                if (parentA.Rank >= parentB.Rank)
+                if (parentA.Rank < parentB.Rank)
+                {
+                    parentA.Parent = parentB;
+                    parentB.Size = currentSize;
+                }
+                else
                 {
                     if (parentA.Rank == parentB.Rank)
                         parentA.Rank++;
                     parentB.Parent = parentA;
-                    parentA.Size = currentSize; ;
-                }
-                else
-                {
-                    parentA.Parent = parentB;
-                    parentB.Size = currentSize;
+                    parentA.Size = currentSize;
                 }
                 _maxSize = Math.Max(_maxSize, currentSize);
                 _numComponents--;
@@ -98,8 +98,9 @@ namespace DSAProblems.DataStructures
 
         private Node<T> FindSet(Node<T> node)
         {
-            if (node != node.Parent)
-                node.Parent = FindSet(node.Parent);
+            if (node == node.Parent)
+                return node;
+            node.Parent = FindSet(node.Parent);
             return node.Parent;
         }
 

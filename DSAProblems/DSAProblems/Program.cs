@@ -9,11 +9,14 @@ using DSAProblems.Algorithms.Recursions;
 using DSAProblems.Algorithms.Sorting;
 using DSAProblems.DataStructures;
 using DSAProblems.DataStructures.Heaps;
+using DSAProblems.DataStructures.Heaps.Problems;
 using DSAProblems.DataStructures.LinkedList;
 using DSAProblems.DataStructures.PriorityQueue;
 using DSAProblems.DynamicProgramming;
 using DSAProblems.LeetCode.BFS;
+using DSAProblems.LLD.Cache;
 using DSAProblems.LLD.ProducerConsumer;
+using DSAProblems.MultiThreading;
 
 namespace DSAProblems
 {
@@ -155,16 +158,78 @@ namespace DSAProblems
 
     class Program
     {
+
         static void Main(string[] args)
         {
-            _05_Cycle_Detection_Directed_Graph cd = new _05_Cycle_Detection_Directed_Graph();
-            Console.WriteLine(cd.IsCycleDfs(4, new Dictionary<int, List<int>>() 
+
+            LC253_MeetingRooms mr = new LC253_MeetingRooms();
+            Console.WriteLine(mr.MinMeetingRoomsPriorityQueue(new int[][]
+            {
+                new int[] {7, 10},
+                new int[] {2, 4}
+            }));
+            ProducerConsumerWithBlockingQueue pc = new ProducerConsumerWithBlockingQueue();
+            pc.Run();
+
+            Cache<int, int> cache = new CacheFactory<int, int>().DefaultCache(3);
+            cache.Put(1, 1);
+            cache.Put(2, 2);
+            cache.Get(1);
+            cache.Put(3, 3);
+            cache.Get(3);
+            cache.Put(4, 4);
+            cache.Get(2);
+            FindLadders("a", "c", new List<string>() { "a", "b", "c" });
+            Console.WriteLine(new _05_Cycle_Detection_Directed_Graph().IsCycleDfs(4, new Dictionary<int, List<int>>()
             {
                 {0, new List<int> {1, 2} },
                 {1, new List<int> {2} },
                 {2, new List<int> {0, 3} },
                 {3, new List<int> {3} },
             }));
+            ProducerConsumer q = new ProducerConsumer(2);
+
+            Console.WriteLine("Enqueuing 10 items...");
+
+            for (int i = 0; i < 10; i++)
+            {
+                int itemNumber = i;      // To avoid the captured variable trap
+                q.EnqueueItem(() =>
+                {
+                    Thread.Sleep(1000);          // Simulate time-consuming work
+                    Console.Write(" Task" + itemNumber);
+                });
+            }
+
+            q.Shutdown(true);
+            Console.WriteLine();
+            Console.WriteLine("Workers complete!");
+            int[][] board = {
+                new int[] {-1,-1,-1,-1,-1,-1},
+                new int[] {-1,-1,-1,-1,-1,-1},
+                new int[] {-1,-1,-1,-1,-1,-1},
+                new int[] {-1,35,-1,-1,13,-1},
+                new int[] {-1,-1,-1,-1,-1,-1},
+                new int[] {-1,15,-1,-1,-1,-1}
+                };
+            int[][] reversed = board.Reverse().ToArray();
+            foreach (int[] b in reversed)
+                Console.WriteLine(string.Join(",", b));
+
+            EvenOddThreadSync evenOddThreadSync = new EvenOddThreadSync();
+            evenOddThreadSync.Run(10);
+            _15_Kruskal_MST sp = new _15_Kruskal_MST();
+            var mst = sp.KruskalMST(
+                new Dictionary<int, List<(int, int)>>()
+                {
+                                {0 , new List<(int, int)> {(1, 2), (3, 6)} },
+                                {1 , new List<(int, int)> {(0, 2), (2, 3), (3, 8), (4, 5) } },
+                                {2 , new List<(int, int)> {(1, 3), (4, 7)} },
+                                {3 , new List<(int, int)> {(0, 6), (1, 8), (4, 9) } },
+                                {4 , new List<(int, int)> {(1, 5), (2, 7), (3, 9) } }
+                }, 5
+                );
+            Console.WriteLine($"Edges {string.Join(",", mst.Edges.Select(x => x.Source + "-" + x.Destination))} Total weight {mst.Weight}");
 
             // This using block defines the lifetime of the queue and therefore the lifetime of all producers and consumers
             using (SynchronizedQueue<string> sq = new SynchronizedQueue<string>(true))
@@ -263,6 +328,147 @@ namespace DSAProblems
             Console.ReadKey();
         }
 
+        public static int LadderLength(string beginWord, string endWord, IList<string> wordList)
+        {
+            Queue<string> queue = new Queue<string>();
+            HashSet<string> words = wordList.ToHashSet();
+            words.Remove(beginWord);
+            queue.Enqueue(beginWord);
+            int level = 0;
+            while (queue.Count > 0)
+            {
+                int size = queue.Count;
+                level++;
+                for (int i = 1; i <= size; i++)
+                {
+                    string currentWord = queue.Dequeue();
+                    if (currentWord == endWord)
+                        return level;
+                    List<string> neighbors = GetNeighbors(currentWord);
+                    foreach (string neighbor in neighbors)
+                    {
+                        if (words.Contains(neighbor))
+                        {
+                            words.Remove(neighbor);
+                            queue.Enqueue(neighbor);
+                        }
+                    }
+                }
+            }
+            return 0;
+        }
+
+        public static IList<IList<string>> FindLadders(string beginWord, string endWord, IList<string> wordList)
+        {
+            var paths = new List<IList<string>>();
+            HashSet<string> wordSet = new HashSet<string>(wordList);
+            if (!wordSet.Contains(endWord)) 
+                return paths;
+            Dictionary<string, List<string>> patternToWords = new Dictionary<string, List<string>>();
+            Dictionary<string, List<string>> wordToPatterns = new Dictionary<string, List<string>>();
+            foreach (string word in wordList)
+            {
+                for (int j = 0; j < word.Length; j++)
+                {
+                    string pattern = $"{word[..j]}*{word[(j + 1)..]}";
+                    if (!wordToPatterns.ContainsKey(word))
+                        wordToPatterns.Add(word, new List<string>() { pattern });
+                    else
+                        wordToPatterns[word].Add(pattern);
+                    if (!patternToWords.ContainsKey(pattern))
+                        patternToWords.Add(pattern, new List<string>() { word });
+                    else
+                        patternToWords[pattern].Add(word);
+                }
+            }
+            Queue<List<string>> queue = new Queue<List<string>>();
+            HashSet<string> visited = new HashSet<string>();
+            queue.Enqueue(new List<string>() { beginWord });
+            visited.Add(beginWord);
+
+            while (queue.Count > 0)
+            {
+                int size = queue.Count;
+                for (int i = 1; i <= size; i++)
+                {
+                    List<string> currentPath = queue.Dequeue();
+                    string lastWord = currentPath[currentPath.Count - 1];
+                    foreach (string pattern in wordToPatterns[lastWord])
+                    {
+                        foreach (string neighbor in patternToWords[pattern])
+                        {
+                            List<string> newPath = new List<string>(currentPath);
+                            newPath.Add(neighbor);
+                            visited.Add(neighbor);
+                            if (neighbor == endWord)
+                                paths.Add(newPath);
+                            else
+                                queue.Enqueue(newPath);
+                        }
+                    }
+                }
+                foreach(var s in visited)
+                    wordSet.Remove(s);
+            }
+
+            return paths;
+        }
+        private static List<string> GetNeighbors(string word)
+        {
+            char[] chars = word.ToCharArray();
+            List<string> neighbors = new List<string>();
+            for (int i = 0; i < chars.Length; i++)
+            {
+                char temp = word[i];
+                for (char c = 'a'; c <= 'z'; c++)
+                {
+                    chars[i] = c;
+                    neighbors.Add(new string(chars));
+                }
+                chars[i] = temp;
+            }
+            return neighbors;
+        }
+        public bool CanFinish(int numCourses, int[][] prerequisites)
+        {
+            var graph = CreateGraph(numCourses, prerequisites);
+            bool[] todo = new bool[numCourses];
+            bool[] done = new bool[numCourses];
+            for (int i = 0; i < numCourses; i++)
+            {
+                if (!done[i] && !IsCycle(graph, todo, done, i))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private Dictionary<int, List<int>> CreateGraph(int numCourses, int[][] prerequisites)
+        {
+            var graph = new Dictionary<int, List<int>>();
+            for (int i = 0; i < numCourses; i++)
+                graph[i] = new List<int>();
+            foreach (var pre in prerequisites)
+                graph[pre[1]].Add(pre[0]);
+            return graph;
+        }
+
+        private bool IsCycle(Dictionary<int, List<int>> graph, bool[] todo, bool[] done, int course)
+        {
+            if (todo[course])
+                return false;
+            if (done[course])
+                return true;
+            todo[course] = done[course] = true;
+            foreach (int c in graph[course])
+            {
+                if (!IsCycle(graph, todo, done, c))
+                    return false;
+            }
+            todo[course] = false;
+            return true;
+        }
         public static int[] FindRedundantConnection(int[][] edges)
         {
             int n = edges.Length;
